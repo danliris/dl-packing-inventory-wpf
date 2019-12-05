@@ -33,6 +33,7 @@ namespace DLInventoryPacking.WinApps.Services
 
                 tokenResult = JsonConvert.DeserializeObject<BaseResponse<string>>(responseContentString, jsonSerializerSetting);
             }
+            httpClient.Dispose();
 
             return tokenResult.data;
         }

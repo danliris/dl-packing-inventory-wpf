@@ -49,9 +49,30 @@
             <Label Content="Bale" FontSize="18" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
             <Label Content="Quantity" FontSize="18" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-            <TextBox x:Name="Quantity" Width="100" FontSize="18" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" PreviewTextInput="Quantity_PreviewTextInput"/>
+            <TextBox x:Name="QuantityTextBox" Width="100" FontSize="18" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" PreviewTextInput="Quantity_PreviewTextInput"/>
 
-            <Button x:Name="SubmitButton" Content="Submit" FontSize="18" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Button x:Name="SubmitButton" Content="Submit" FontSize="18" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Click="SubmitButton_Click"/>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <ListView x:Name="BarcodeListView">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Code" DisplayMemberBinding="{Binding Code}"/>
+                        <GridViewColumn Header="SKUId" DisplayMemberBinding="{Binding SKUId}"/>
+                        <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Quantity}"/>
+                        <GridViewColumn Header="UOM" DisplayMemberBinding="{Binding UOMUnit}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <Button x:Name="PrintButton" Content="Print" Grid.Row="1" Width="50" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="PrintButton_Click"/>
+
         </Grid>
     </Grid>
 </Page>
