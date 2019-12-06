@@ -89,7 +89,7 @@
                         <GridViewColumn Width="75" Header="ID SKU" DisplayMemberBinding="{Binding SKUId}"/>
                         <GridViewColumn Width="75" Header="Kuantitas" DisplayMemberBinding="{Binding Quantity}"/>
                         <GridViewColumn Width="75" Header="Satuan" DisplayMemberBinding="{Binding UOMUnit}"/>
-                        <GridViewColumn Width="75" Header="Tipe Pack" DisplayMemberBinding="{Binding PackType}"/>
+                        <GridViewColumn Width="75" Header="Tipe Pack" DisplayMemberBinding="{Binding PackingType}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
