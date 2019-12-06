@@ -92,8 +92,8 @@ namespace DLInventoryPacking.WinApps.Pages
                     YarnTypeSuffixTextbox.Text = string.Empty;
                     QuantityTextBox.Text = string.Empty;
 
-                    _barcodes.Add(new BarcodeInfo() { Code = barcode.Code, PackType = barcode.PackType, Quantity = barcode.Quantity, SKUId = barcode.SKUId, UOMUnit = barcode.UOMUnit });
-                    BarcodeListView.Items.Add(new BarcodeInfo() { Code = barcode.Code, PackType = barcode.PackType, Quantity = barcode.Quantity, SKUId = barcode.SKUId, UOMUnit = barcode.UOMUnit });
+                    _barcodes.Add(barcode);
+                    BarcodeListView.Items.Add(barcode);
                 }
                 MessageBox.Show("data berhasil disimpan");
             }
