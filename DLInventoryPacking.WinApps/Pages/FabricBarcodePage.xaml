@@ -38,36 +38,79 @@
             
             <Label Content="Barang" FontSize="18" FontWeight="Bold" Grid.Row="1"/>
             
-            <Label Content="Komposisi" FontSize="18" Grid.Row="2" HorizontalAlignment="Right"/>
-            <TextBox Width="100" FontSize="18" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            
-            <Label Content="Konstruksi" FontSize="18" Grid.Row="3" HorizontalAlignment="Right"/>
+            <Label Content="Komposisi" FontSize="18" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox x:Name="CompositionTextBox" Width="100" FontSize="18" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+            <Label Content="Konstruksi" FontSize="18" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center"/>
             <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
-                <TextBox Width="50" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox x:Name="Construction1TextBox" Width="50" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <Label Content="X" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBox  Width="50" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox x:Name="Construction2TextBox"  Width="50" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             </StackPanel>
-            
-            <Label Content="Lebar" FontSize="18" Grid.Row="4" HorizontalAlignment="Right"/>
-            <TextBox Width="100" FontSize="18" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
-            <Label Content="Design" FontSize="18" Grid.Row="5" HorizontalAlignment="Right"/>
-            <TextBox Width="100" FontSize="18" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Label Content="Lebar" FontSize="18" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox x:Name="WidthTextBox" Width="100" FontSize="18" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
-            <Label Content="Grade" FontSize="18" Grid.Row="6" HorizontalAlignment="Right"/>
-            <TextBox Width="100" FontSize="18" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Label Content="Design" FontSize="18" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox x:Name="DesignTextBox" Width="100" FontSize="18" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+            <Label Content="Grade" FontSize="18" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <StackPanel Width="125" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <ComboBox x:Name="GradeComboBox" FontSize="18" IsEditable="True">
+                    <ComboBoxItem Content="A"/>
+                    <ComboBoxItem Content="B"/>
+                    <ComboBoxItem Content="C"/>
+                    <ComboBoxItem Content="BS FINISH"/>
+                    <ComboBoxItem Content="BS MATERIAL"/>
+                    <ComboBoxItem Content="AVAL"/>
+                </ComboBox>
+            </StackPanel>
 
             <Label Content="Pack" FontSize="18" FontWeight="Bold" Grid.Row="7"/>
             <Label Content="UOM" FontSize="18" Grid.Row="8" HorizontalAlignment="Right" VerticalAlignment="Center"/>
             <Label Content="MTR" FontSize="18" Grid.Row="8" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            
-            <Label Content="Kuantiti" FontSize="18" Grid.Row="9" HorizontalAlignment="Right"/>
-            <TextBox Width="100" FontSize="18" Grid.Row="9" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            
-            <Label Content="Jenis Pack" FontSize="18" Grid.Row="10" HorizontalAlignment="Right"/>
-            <TextBox Width="100" FontSize="18" Grid.Row="10" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
-            <Button x:Name="SubmitButton" Content="Submit" FontSize="18" Grid.Row="11" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Label Content="Kuantiti" FontSize="18" Grid.Row="9" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox x:Name="QuantityTextBox" Width="100" FontSize="18" Grid.Row="9" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" PreviewTextInput="Quantity_PreviewTextInput"/>
+
+            <Label Content="Jenis Pack" FontSize="18" Grid.Row="10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <!--<TextBox Width="100" FontSize="18" Grid.Row="10" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>-->
+            <StackPanel Width="100" Grid.Row="10" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <ComboBox x:Name="PackTypeComboBox" FontSize="18" IsEditable="True">
+                    <ComboBoxItem Content="ROLL"/>
+                    <ComboBoxItem Content="PCS"/>
+                    <ComboBoxItem Content="POT"/>
+                    <ComboBoxItem Content="SETS"/>
+                    <ComboBoxItem Content="SLP"/>
+                    <ComboBoxItem Content="BDL"/>
+                    <ComboBoxItem Content="KRG"/>
+                    <ComboBoxItem Content="LBR"/>
+                </ComboBox>
+            </StackPanel>
+
+            <Button x:Name="SubmitButton" Content="Submit" FontSize="18" Grid.Row="11" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,3.8,0,0" Click="SubmitButton_Click"/>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <ListView x:Name="BarcodeListView">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="75" Header="Kode" DisplayMemberBinding="{Binding Code}"/>
+                        <GridViewColumn Width="75" Header="ID SKU" DisplayMemberBinding="{Binding SKUId}"/>
+                        <GridViewColumn Width="75" Header="Kuantitas" DisplayMemberBinding="{Binding Quantity}"/>
+                        <GridViewColumn Width="75" Header="Satuan" DisplayMemberBinding="{Binding UOMUnit}"/>
+                        <GridViewColumn Width="75" Header="Tipe Pack" DisplayMemberBinding="{Binding PackType}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <Button x:Name="PrintButton" Content="Print" Grid.Row="1" Width="50" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="PrintButton_Click"/>
+
         </Grid>
     </Grid>
 </Page>

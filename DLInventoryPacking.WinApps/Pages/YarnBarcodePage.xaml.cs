@@ -68,8 +68,22 @@ namespace DLInventoryPacking.WinApps.Pages
             }
             else
             {
-                var viewModel = new YarnProductViewModel(LotNoTextBox.Text, quantity, "BALE", YarnTypePrefixTextBox.Text + YarnTypeSuffixTextbox.Text);
-                var barcode = await PackingInventoryService.PostYarnProduct(viewModel);
+                var viewModel = new ProductViewModel(
+                    string.Empty,
+                    string.Empty,
+                    string.Empty,
+                    string.Empty,
+                    LotNoTextBox.Text,
+                    "YARN",
+                    string.Empty,
+                    string.Empty,
+                    YarnTypePrefixTextBox.Text + YarnTypeSuffixTextbox.Text,
+                    string.Empty,
+                    "BALE",
+                    quantity,
+                    "PALET"
+                    );
+                var barcode = await PackingInventoryService.PostProduct(viewModel);
 
                 if (barcode != null && !string.IsNullOrWhiteSpace(barcode.Code))
                 {

@@ -101,6 +101,7 @@
     <Compile Include="Services\ResponseModel\BaseResponseBarcodeInfo.cs" />
     <Compile Include="Services\ResponseModel\UserCredentials.cs" />
     <Compile Include="Services\ResponseModel\BarcodeInfo.cs" />
+    <Compile Include="ViewModels\FabricProductViewModel.cs" />
     <Compile Include="ViewModels\YarnProductViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

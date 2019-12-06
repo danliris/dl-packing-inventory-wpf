@@ -14,7 +14,7 @@ namespace DLInventoryPacking.WinApps.Services
 {
     public static class PackingInventoryService
     {
-        public static async Task<BarcodeInfo> PostYarnProduct(YarnProductViewModel viewModel)
+        public static async Task<BarcodeInfo> PostProduct(ProductViewModel viewModel)
         {
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", UserCredentials.Token);

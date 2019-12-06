@@ -63,10 +63,11 @@
             <ListView x:Name="BarcodeListView">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Code" DisplayMemberBinding="{Binding Code}"/>
-                        <GridViewColumn Header="SKUId" DisplayMemberBinding="{Binding SKUId}"/>
-                        <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Quantity}"/>
-                        <GridViewColumn Header="UOM" DisplayMemberBinding="{Binding UOMUnit}"/>
+                        <GridViewColumn Width="75" Header="Kode" DisplayMemberBinding="{Binding Code}"/>
+                        <GridViewColumn Width="75" Header="ID SKU" DisplayMemberBinding="{Binding SKUId}"/>
+                        <GridViewColumn Width="75" Header="Kuantitas" DisplayMemberBinding="{Binding Quantity}"/>
+                        <GridViewColumn Width="75" Header="Satuan" DisplayMemberBinding="{Binding UOMUnit}"/>
+                        <GridViewColumn Width="75" Header="Tipe Pack" DisplayMemberBinding="{Binding PackType}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
