@@ -51,7 +51,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>1AF33EA17A1CBB56E63274B72998F8C8B9E7760C</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>FDE38FD6E43E0D6624DF30DB93949206AFEBAD4F</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>DLInventoryPacking.WinApps_TemporaryKey.pfx</ManifestKeyFile>
@@ -60,7 +60,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -185,6 +185,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Documents\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

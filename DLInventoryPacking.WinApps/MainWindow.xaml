@@ -6,9 +6,17 @@
         xmlns:local="clr-namespace:DLInventoryPacking.WinApps"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="1000">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF101466" Offset="0.053"/>
+            <GradientStop Color="#FFFAF9F9" Offset="0.142"/>
+            <GradientStop Color="#FFFAF9F9" Offset="0.831"/>
+            <GradientStop Color="#FF101466" Offset="0.957"/>
+        </LinearGradientBrush>
+    </Window.Background>
 
     <Grid>
-        <Grid x:Name="LoginGrid" Visibility="Hidden">
+        <Grid x:Name="LoginGrid" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
@@ -17,9 +25,16 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Column="1">
+            <Grid Grid.Row="1"  Visibility="Visible">
+
+                <Image
+                HorizontalAlignment="Left" Name="img" Height="174" Margin="150,0,0,16.4" VerticalAlignment="Bottom" Width="164" Source="/Resource/logo.png"/>
+            </Grid>
+
+            <Grid Grid.Column="1" Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
@@ -28,7 +43,7 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
+
                 </Grid.RowDefinitions>
 
                 <Label Content="Username" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20"></Label>
