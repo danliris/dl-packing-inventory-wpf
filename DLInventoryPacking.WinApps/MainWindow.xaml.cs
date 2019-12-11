@@ -23,12 +23,18 @@ namespace DLInventoryPacking.WinApps
     /// </summary>
     public partial class MainWindow : Window
     {
+        private YarnBarcodePage Yarnpage = new YarnBarcodePage();
+        private FabricBarcodePage Fabricpage = new FabricBarcodePage();
+        private GreigeBarcodePage Greigepage = new GreigeBarcodePage();
         public MainWindow()
         {
             InitializeComponent();
             MenuGrid.Visibility = Visibility.Hidden;
             LoginGrid.Visibility = Visibility.Visible;
+           
         }
+
+
 
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
@@ -57,22 +63,68 @@ namespace DLInventoryPacking.WinApps
 
         private void DashboardButton_Click(object sender, RoutedEventArgs e)
         {
+
+            
             _NavigationFrame.Navigate(new HomePage());
         }
 
         private void YarnBarcodeButton_Click(object sender, RoutedEventArgs e)
         {
-            _NavigationFrame.Navigate(new YarnBarcodePage());
+            if (Fabricpage.BarcodeListView.Items.Count != 0)
+            {
+                MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
+            }
+            else if (Greigepage.BarcodeListView.Items.Count != 0)
+            {
+                MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
+            }
+            else
+            {
+                _NavigationFrame.Navigate(new YarnBarcodePage());
+
+            }
         }
 
         private void FabricBarcodeButton_Click(object sender, RoutedEventArgs e)
         {
-            _NavigationFrame.Navigate(new FabricBarcodePage());
+
+         
+
+            if (Yarnpage.BarcodeListView.Items.Count > 0)
+            {
+
+                MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
+            }
+            else if (Greigepage.BarcodeListView.Items.Count > 0)
+            {
+
+                MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
+            }
+            else
+            {
+                _NavigationFrame.Navigate(new FabricBarcodePage());
+
+            }
+            //_NavigationFrame.Navigate(new FabricBarcodePage());
         }
 
         private void GreigeBarcodeButton_Click(object sender, RoutedEventArgs e)
         {
-            _NavigationFrame.Navigate(new GreigeBarcodePage());
+
+            if (Fabricpage.BarcodeListView.Items.Count >0)
+            {
+                MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
+            }
+            else if (Greigepage.BarcodeListView.Items.Count >0)
+            {
+                MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
+            }
+            else
+            {
+                _NavigationFrame.Navigate(new GreigeBarcodePage());
+
+            }
+            // _NavigationFrame.Navigate(new GreigeBarcodePage());
         }
     }
 }

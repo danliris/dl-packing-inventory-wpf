@@ -13,7 +13,11 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
+        
+        <Image
+                HorizontalAlignment="Left" Name="img" Height="200" Margin="120,0,0,170" VerticalAlignment="Bottom" Width="200" Source="/Resource/logo.png" Opacity="0.35"/>
 
+        
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>

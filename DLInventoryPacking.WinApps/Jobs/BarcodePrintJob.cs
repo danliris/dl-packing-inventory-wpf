@@ -1,6 +1,7 @@
 ﻿using DLInventoryPacking.WinApps.Services.ResponseModel;
 using Newtonsoft.Json;
 using QRCoder;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -22,8 +23,16 @@ namespace DLInventoryPacking.WinApps.Jobs
 
             var documentPaginatorSource = (IDocumentPaginatorSource)document;
 
-            var printDialog = new PrintDialog();
-            printDialog.PrintDocument(documentPaginatorSource.DocumentPaginator, "Printing");
+            var index = 0;
+            foreach (var barcode in barcodes)
+            {
+                var qrCodeBitmap = GetQRCodeBitmap(barcode);
+                var imageSource = GetImage(qrCodeBitmap);
+
+                var printDialog = new PrintDialog();
+                printDialog.PrintVisual(imageSource, $"My Image{index}");
+                index++;
+            }
         }
 
         private FlowDocument CreateDocument(List<BarcodeInfo> barcodes)
@@ -32,7 +41,7 @@ namespace DLInventoryPacking.WinApps.Jobs
 
             var table = new Table();
 
-            for (var i = 0; i < 4; i++)
+            for (var i = 0; i < 1; i++)
             {
                 table.Columns.Add(new TableColumn());
             }
@@ -45,15 +54,10 @@ namespace DLInventoryPacking.WinApps.Jobs
 
             foreach (var barcode in barcodes)
             {
-                var qrCodeGenerator = new QRCodeGenerator();
-                var qrCodeData = qrCodeGenerator.CreateQrCode(JsonConvert.SerializeObject(barcode), QRCodeGenerator.ECCLevel.Q);
-                var qrCode = new QRCode(qrCodeData);
-                var bitmap = qrCode.GetGraphic(20);
+                var bitmap = GetQRCodeBitmap(barcode);
 
-                var image = new System.Windows.Controls.Image()
-                {
-                    Source = BitmapToImageSource(bitmap)
-                };
+                var image = GetImage(bitmap);
+
                 var block = new BlockUIContainer(image);
                 currentRow.Cells.Add(new TableCell(block));
             }
@@ -62,9 +66,17 @@ namespace DLInventoryPacking.WinApps.Jobs
             return document;
         }
 
-        private ImageSource BitmapToImageSource(Bitmap bitmap)
+        private Bitmap GetQRCodeBitmap(BarcodeInfo barcode)
         {
-            using(var memory = new MemoryStream())
+            var qrCodeGenerator = new QRCodeGenerator();
+            var qrCodeData = qrCodeGenerator.CreateQrCode(JsonConvert.SerializeObject(barcode), QRCodeGenerator.ECCLevel.Q);
+            var qrCode = new QRCode(qrCodeData);
+            return qrCode.GetGraphic(10);
+        }
+
+        private System.Windows.Controls.Image GetImage(Bitmap bitmap)
+        {
+            using (var memory = new MemoryStream())
             {
                 bitmap.Save(memory, ImageFormat.Bmp);
                 memory.Position = 0;
@@ -75,8 +87,13 @@ namespace DLInventoryPacking.WinApps.Jobs
                 bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
                 bitmapImage.EndInit();
 
-                return bitmapImage;
-            }
+                return new System.Windows.Controls.Image()
+                {
+                    Source = bitmapImage
+                };
+            };
+
+
         }
     }
 }
