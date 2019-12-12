@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
@@ -17,21 +18,77 @@ namespace DLInventoryPacking.WinApps.Jobs
     {
         public void PrintBarcode(List<BarcodeInfo> barcodes)
         {
-            var document = CreateDocument(barcodes);
-
-            document.Name = "Document";
-
-            var documentPaginatorSource = (IDocumentPaginatorSource)document;
 
             var index = 0;
+            var grids = new List<Grid>();
             foreach (var barcode in barcodes)
             {
                 var qrCodeBitmap = GetQRCodeBitmap(barcode);
                 var imageSource = GetImage(qrCodeBitmap);
 
-                var printDialog = new PrintDialog();
-                printDialog.PrintVisual(imageSource, $"My Image{index}");
+                var grid = new Grid
+                {
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Center
+                };
+                grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(3, GridUnitType.Star) });
+                var imageBorder = new Border() { BorderThickness = new Thickness(1, 1, 0, 1), BorderBrush = new SolidColorBrush(Colors.Black) };
+                var textBorder = new Border() { BorderThickness = new Thickness(1, 1, 1, 1), BorderBrush = new SolidColorBrush(Colors.Black) };
+                Grid.SetColumn(imageBorder, 0);
+                Grid.SetColumn(textBorder, 1);
+
+                var textStackPanel = new StackPanel();
+                textStackPanel.Children.Add(new Label() { FontSize = 10, Content = $"Iki Jeneng Barange", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center });
+                textStackPanel.Children.Add(new Label() { FontSize = 10, Content = $"\n", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center });
+                textStackPanel.Children.Add(new Label() { FontSize = 10, Content = $"Iki nek ono pakan e", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center });
+                textBorder.Child = textStackPanel;
+
+                var horizontalStack = new StackPanel()
+                {
+                    Orientation = Orientation.Horizontal
+                };
+                horizontalStack.Children.Add(new Label() { FontSize = 10, Content = $"Upin", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center });
+                horizontalStack.Children.Add(new Label() { FontSize = 10, Content = $"&", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center });
+                horizontalStack.Children.Add(new Label() { FontSize = 10, Content = $"Ipin", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center });
+                textStackPanel.Children.Add(horizontalStack);
+
+                var stackPanel = new StackPanel()
+                {
+                    Orientation = Orientation.Vertical
+                };
+                imageSource.Stretch = Stretch.Fill;
+                stackPanel.Children.Add(imageSource);
+                stackPanel.Children.Add(new Label() { FontSize = 10, Content = $"{barcode.Code}", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center });
+
+                imageSource.HorizontalAlignment = HorizontalAlignment.Center;
+                imageSource.VerticalAlignment = VerticalAlignment.Center;
+                imageBorder.Child = stackPanel;
+                grid.Children.Add(imageBorder);
+                grid.Children.Add(textBorder);
+
+                grids.Add(grid);
+
                 index++;
+            }
+
+            var stackPanelToPrint = new StackPanel();
+            var documents = new List<FlowDocument>();
+            foreach (var grid in grids)
+            {
+                var document = new FlowDocument();
+                var uiContainer = new BlockUIContainer(grid);
+                document.Blocks.Add(uiContainer);
+                documents.Add(document);
+            }
+
+            var documentIndex = 1;
+            foreach (var document in documents)
+            {
+                var printDialog = new PrintDialog();
+                document.PageHeight = printDialog.PrintableAreaHeight;
+                document.PageWidth = printDialog.PrintableAreaWidth;
+                printDialog.PrintDocument(((IDocumentPaginatorSource)document).DocumentPaginator, $"document {documentIndex}");
             }
         }
 
