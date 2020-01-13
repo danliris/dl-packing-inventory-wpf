@@ -31,7 +31,10 @@ namespace DLInventoryPacking.WinApps.Pages
         {
             InitializeComponent();
             _barcodes = new List<BarcodeInfo>();
+           
         }
+
+        
 
         private void Quantity_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
@@ -41,6 +44,10 @@ namespace DLInventoryPacking.WinApps.Pages
 
         private async void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
+            //var validate = new Validate();
+            
+            
+            Mouse.OverrideCursor = Cursors.Wait;
             var errorMessage = "Harap isi semua kolom berikut: \n";
             var anyError = false;
             if (string.IsNullOrWhiteSpace(YarnTypePrefixTextBox.Text) || string.IsNullOrWhiteSpace(YarnTypeSuffixTextbox.Text))
@@ -96,16 +103,34 @@ namespace DLInventoryPacking.WinApps.Pages
                     BarcodeListView.Items.Add(barcode);
                 }
                 MessageBox.Show("data berhasil disimpan");
+                Mouse.OverrideCursor = null;
             }
+
+        }
+
+        private async void SeacrhtButton_Click(object sender, RoutedEventArgs e) {
+
+            
+
+
+            var code = Searching.Text;
+            var barcode = await PackingInventoryService.GetProduct(code);
+
+            _barcodes.Add(barcode);
+            BarcodeListView.Items.Add(barcode);
+
+
 
         }
 
         private void PrintButton_Click(object sender, RoutedEventArgs e)
         {
+            Mouse.OverrideCursor = Cursors.Wait;
             if (BarcodeListView.Items.Count > 0)
             {
                 var printBarcodeJob = new BarcodePrintJob();
                 printBarcodeJob.PrintBarcode(_barcodes);
+                Mouse.OverrideCursor = null;
             }
         }
     }

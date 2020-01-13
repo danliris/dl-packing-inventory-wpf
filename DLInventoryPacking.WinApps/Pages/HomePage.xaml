@@ -9,6 +9,32 @@
       Title="HomePage">
 
     <Grid>
-        <Label FontSize="20" Content="Home"/>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height ="4*"/>
+            <RowDefinition/>
+          
+        </Grid.RowDefinitions>
+        
+        
+
+        <Grid>
+            <Label FontSize="30" FontWeight="Bold" Foreground="White" Content="HOME" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="107"/>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Label FontSize="30" FontWeight="Bold" Foreground="DarkBlue" Content="INVENTORY QR CODE &#xA;        APLICATION" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="43,0,110,211"/>
+            <Image
+                HorizontalAlignment="Left" Name="img" Height="200" Margin="104,100,0,0" VerticalAlignment="Center" Width="200" Source="/Resource/logo.png" Opacity="0.35"/>
+        </Grid>
     </Grid>
+    
+    
 </Page>

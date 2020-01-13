@@ -8,10 +8,10 @@
         Title="MainWindow" Height="600" Width="1000">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FF101466" Offset="0.053"/>
+            <GradientStop Color="#FF41448C" Offset="0.053"/>
             <GradientStop Color="#FFFAF9F9" Offset="0.142"/>
             <GradientStop Color="#FFFAF9F9" Offset="0.831"/>
-            <GradientStop Color="#FF101466" Offset="0.957"/>
+            <GradientStop Color="#FF41448C" Offset="0.957"/>
         </LinearGradientBrush>
     </Window.Background>
 
@@ -28,6 +28,9 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
+            <Grid Grid.Column="1" >
+                <Label FontSize="40" FontWeight="Bold" Foreground="CadetBlue" Content="L O G I N" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="191" RenderTransformOrigin="0.547,1.29" Margin="81,120,59.2,10.4" Height="60" FontFamily="ZapfHumnst Ult BT"/>
+            </Grid>
             <Grid Grid.Row="1"  Visibility="Visible">
 
                 <Image
@@ -46,13 +49,20 @@
 
                 </Grid.RowDefinitions>
 
-                <Label Content="Username" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20"></Label>
-                <TextBox x:Name="UsernameTextBox" Grid.Column="1" VerticalAlignment="Center" FontSize="20"></TextBox>
+                <Label Content="Username :" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="CadetBlue" FontSize="20"></Label>
+                <TextBox x:Name="UsernameTextBox" Grid.Column="1" VerticalAlignment="Bottom" FontSize="20"></TextBox>
 
-                <Label Grid.Row="1" Content="Password" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20"></Label>
-                <PasswordBox x:Name="PasswordTextBox" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" FontSize="20"></PasswordBox>
+                <Label Grid.Row="1" Content="Password :" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="20" Foreground="CadetBlue"></Label>
+                <PasswordBox x:Name="PasswordTextBox" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" FontSize="20"></PasswordBox>
 
-                <Button x:Name="LoginButton" Content="Login" FontSize="20" Grid.Column="1" Grid.Row="2" MinWidth="100" MinHeight="40" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0.2,0,0,11.6" Click="LoginButton_Click"></Button>
+                <Button x:Name="LoginButton" BorderThickness="0" Foreground="#FFFDF4F4" FontWeight="Bold" Content="Login" FontSize="20" Grid.Column="1" Grid.Row="2" MinWidth="100" MinHeight="40" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0.2,0,0,11.6" Click="LoginButton_Click" BorderBrush="#FF22E0E0">
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="Black" Offset="0"/>
+                            <GradientStop Color="#FF2D60EE" Offset="0.34"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
             </Grid>
         </Grid>
 

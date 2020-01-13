@@ -39,5 +39,32 @@ namespace DLInventoryPacking.WinApps.Services
             httpClient.Dispose();
             return barcodeResult.BarcodeInfo;
         }
+
+        public static async Task<BarcodeInfo> GetProduct(string code)
+        {
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", UserCredentials.Token);
+
+           var content = new { code };
+           var requestContent = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
+
+            var response = await httpClient.GetAsync(APIEndpoint.PackingInventoryEndpoint + "product-skus/1" );
+
+            var barcodeResult = new BaseResponseBarcodeInfo<BarcodeInfo>();
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContentString = await response.Content.ReadAsStringAsync();
+
+                var jsonSerializerSetting = new JsonSerializerSettings()
+                {
+                    MissingMemberHandling = MissingMemberHandling.Ignore,
+                };
+
+                barcodeResult = JsonConvert.DeserializeObject<BaseResponseBarcodeInfo<BarcodeInfo>>(responseContentString, jsonSerializerSetting);
+            }
+
+            httpClient.Dispose();
+            return barcodeResult.BarcodeInfo;
+        }
     }
 }

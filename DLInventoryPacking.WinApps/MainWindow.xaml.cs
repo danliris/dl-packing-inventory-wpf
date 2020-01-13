@@ -1,4 +1,5 @@
-﻿using DLInventoryPacking.WinApps.Pages;
+﻿using DLInventoryPacking.WinApps.Jobs;
+using DLInventoryPacking.WinApps.Pages;
 using DLInventoryPacking.WinApps.Services;
 using DLInventoryPacking.WinApps.Services.ResponseModel;
 using System;
@@ -31,13 +32,18 @@ namespace DLInventoryPacking.WinApps
             InitializeComponent();
             MenuGrid.Visibility = Visibility.Hidden;
             LoginGrid.Visibility = Visibility.Visible;
-           
+
+            Button btn = new Button();
+            btn.Name = "YarnBarcodeButton";
+            btn.Click += YarnBarcodeButton_Click;
+
         }
 
 
 
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
+            Mouse.OverrideCursor = Cursors.Wait;
             if (string.IsNullOrWhiteSpace(UsernameTextBox.Text) || string.IsNullOrWhiteSpace(PasswordTextBox.Password))
             {
                 MessageBox.Show("Username atau Password harus diisi!");
@@ -55,7 +61,9 @@ namespace DLInventoryPacking.WinApps
                     LoginGrid.Visibility = Visibility.Hidden;
                     MenuGrid.Visibility = Visibility.Visible;
                     _NavigationFrame.Navigate(new HomePage());
+                    
                 }
+                Mouse.OverrideCursor = null;
             }
 
             
@@ -64,13 +72,16 @@ namespace DLInventoryPacking.WinApps
         private void DashboardButton_Click(object sender, RoutedEventArgs e)
         {
 
-            
+            string content = (sender as Button).Content.ToString();
             _NavigationFrame.Navigate(new HomePage());
         }
 
         private void YarnBarcodeButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Fabricpage.BarcodeListView.Items.Count != 0)
+            //var validate = new Validate();
+            //validate.jumlah();
+            
+            if (Fabricpage.BarcodeListView.Items.Count != 0 )
             {
                 MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
             }
@@ -80,6 +91,7 @@ namespace DLInventoryPacking.WinApps
             }
             else
             {
+                string content = (sender as Button).Content.ToString();
                 _NavigationFrame.Navigate(new YarnBarcodePage());
 
             }

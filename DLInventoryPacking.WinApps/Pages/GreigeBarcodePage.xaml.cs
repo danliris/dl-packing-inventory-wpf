@@ -44,6 +44,7 @@ namespace DLInventoryPacking.WinApps.Pages
 
         private async void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
+            Mouse.OverrideCursor = Cursors.Wait;
             var errorMessage = "Harap isi semua kolom berikut: \n";
             var anyError = false;
             if (string.IsNullOrWhiteSpace(WovenTypeTextBox.Text) || string.IsNullOrWhiteSpace(WovenTypeTextBox.Text))
@@ -129,6 +130,7 @@ namespace DLInventoryPacking.WinApps.Pages
                     BarcodeListView.Items.Add(barcode);
                 }
                 MessageBox.Show("data berhasil disimpan");
+                Mouse.OverrideCursor = null;
             }
         }
 

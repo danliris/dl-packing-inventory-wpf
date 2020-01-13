@@ -39,18 +39,18 @@ namespace DLInventoryPacking.WinApps.Jobs
                 Grid.SetColumn(textBorder, 1);
 
                 var textStackPanel = new StackPanel();
-                textStackPanel.Children.Add(new Label() { FontSize = 10, Content = $"Iki Jeneng Barange", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center });
-                textStackPanel.Children.Add(new Label() { FontSize = 10, Content = $"\n", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center });
-                textStackPanel.Children.Add(new Label() { FontSize = 10, Content = $"Iki nek ono pakan e", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center });
+                textStackPanel.Children.Add(new Label() { FontSize = 10, Content = $"{barcode.SKUId}", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center });
+                textStackPanel.Children.Add(new Label() { FontSize = 10, Content = $"{barcode.Quantity}", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center });
+                textStackPanel.Children.Add(new Label() { FontSize = 10, Content = $"{barcode.Code}", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center });
                 textBorder.Child = textStackPanel;
 
                 var horizontalStack = new StackPanel()
                 {
                     Orientation = Orientation.Horizontal
                 };
-                horizontalStack.Children.Add(new Label() { FontSize = 10, Content = $"Upin", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center });
-                horizontalStack.Children.Add(new Label() { FontSize = 10, Content = $"&", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center });
-                horizontalStack.Children.Add(new Label() { FontSize = 10, Content = $"Ipin", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center });
+                horizontalStack.Children.Add(new Label() { FontSize = 10, Content = $"{barcode.UOMUnit}", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center });
+                horizontalStack.Children.Add(new Label() { FontSize = 10, Content = $"\n", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center });
+                horizontalStack.Children.Add(new Label() { FontSize = 10, Content = $"{barcode.PackingType}", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center });
                 textStackPanel.Children.Add(horizontalStack);
 
                 var stackPanel = new StackPanel()
