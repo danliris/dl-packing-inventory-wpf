@@ -82,8 +82,9 @@ namespace DLInventoryPacking.WinApps.Pages
                 errorMessage += "- Grade\n";
             }
 
-            decimal.TryParse(QuantityTextBox.Text, out var quantity);
-            if (string.IsNullOrWhiteSpace(QuantityTextBox.Text) || quantity <= 0)
+            //decimal.TryParse(QuantityTextBox.Text, out var quantity);
+            var quantity = QuantityDecimalUpDown.Value.GetValueOrDefault();
+            if (QuantityDecimalUpDown.Value.GetValueOrDefault() <= 0)
             {
                 anyError = true;
                 errorMessage += "- Quantity\n";
@@ -123,7 +124,7 @@ namespace DLInventoryPacking.WinApps.Pages
                     YarnType1SuffixTextBox.Text = string.Empty;
                     YarnType2PrefixTextBox.Text = string.Empty;
                     YarnType2SuffixTextBox.Text = string.Empty;
-                    QuantityTextBox.Text = string.Empty;
+                    QuantityDecimalUpDown.Value = null;
 
                     _barcodes.Add(barcode);
                     BarcodeListView.Items.Add(barcode);

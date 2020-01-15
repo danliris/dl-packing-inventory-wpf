@@ -73,8 +73,9 @@ namespace DLInventoryPacking.WinApps.Pages
                 errorMessage += "- Grade\n";
             }
 
-            decimal.TryParse(QuantityTextBox.Text, out var quantity);
-            if (string.IsNullOrWhiteSpace(QuantityTextBox.Text) || quantity <= 0)
+            //decimal.TryParse(QuantityTextBox.Text, out var quantity);
+            var quantity = QuantityDecimalUpDown.Value.GetValueOrDefault();
+            if (quantity <= 0)
             {
                 anyError = true;
                 errorMessage += "- Quantity\n";
@@ -118,7 +119,7 @@ namespace DLInventoryPacking.WinApps.Pages
                     GradeComboBox.Text = string.Empty;
                     WidthTextBox.Text = string.Empty;
                     PackTypeComboBox.Text = string.Empty;
-                    QuantityTextBox.Text = string.Empty;
+                    QuantityDecimalUpDown.Value = null;
 
                     _barcodes.Add(barcode);
                     BarcodeListView.Items.Add(barcode);

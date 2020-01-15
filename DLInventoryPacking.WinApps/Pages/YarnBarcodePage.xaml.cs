@@ -55,12 +55,14 @@ namespace DLInventoryPacking.WinApps.Pages
                 errorMessage += "- Nomor Lot\n";
             }
 
-            decimal.TryParse(QuantityTextBox.Text, out var quantity);
-            if (string.IsNullOrWhiteSpace(QuantityTextBox.Text) || quantity <= 0)
-            {
-                anyError = true;
-                errorMessage += "- Quantity\n";
-            }
+            //decimal.TryParse(QuantityTextBox.Text, out var quantity);
+            //if (string.IsNullOrWhiteSpace(QuantityTextBox.Text) || quantity <= 0)
+            //{
+            //    anyError = true;
+            //    errorMessage += "- Quantity\n";
+            //}
+
+            //var quantity = QuantityDecimalUpDown.Value.GetValueOrDefault();
 
             if (anyError)
             {
@@ -80,7 +82,7 @@ namespace DLInventoryPacking.WinApps.Pages
                     YarnTypePrefixTextBox.Text + YarnTypeSuffixTextbox.Text,
                     string.Empty,
                     "BALE",
-                    quantity,
+                    QuantityDecimalUpDown.Value.GetValueOrDefault(),
                     "PALET"
                     );
                 var barcode = await PackingInventoryService.PostProduct(viewModel);
@@ -90,7 +92,8 @@ namespace DLInventoryPacking.WinApps.Pages
                     LotNoTextBox.Text = string.Empty;
                     YarnTypePrefixTextBox.Text = string.Empty;
                     YarnTypeSuffixTextbox.Text = string.Empty;
-                    QuantityTextBox.Text = string.Empty;
+                    //QuantityTextBox.Text = string.Empty;
+                    QuantityDecimalUpDown.Value = null;
 
                     _barcodes.Add(barcode);
                     BarcodeListView.Items.Add(barcode);

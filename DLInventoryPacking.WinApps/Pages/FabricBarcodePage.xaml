@@ -1,7 +1,8 @@
 ﻿<Page x:Class="DLInventoryPacking.WinApps.Pages.FabricBarcodePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DLInventoryPacking.WinApps.Pages"
       mc:Ignorable="d" 
@@ -71,8 +72,9 @@
             <Label Content="MTR" FontSize="18" Grid.Row="8" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
             <Label Content="Kuantiti" FontSize="18" Grid.Row="9" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-            <TextBox x:Name="QuantityTextBox" Width="100" FontSize="18" Grid.Row="9" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" PreviewTextInput="Quantity_PreviewTextInput"/>
-
+            <!--<TextBox x:Name="QuantityTextBox" Width="100" FontSize="18" Grid.Row="9" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" PreviewTextInput="Quantity_PreviewTextInput"/>-->
+            <xctk:DecimalUpDown x:Name="QuantityDecimalUpDown" FormatString="F4" Increment=".001" Width="100" FontSize="18" Grid.Row="9" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            
             <Label Content="Jenis Pack" FontSize="18" Grid.Row="10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
             <!--<TextBox Width="100" FontSize="18" Grid.Row="10" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>-->
             <StackPanel Width="100" Grid.Row="10" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
