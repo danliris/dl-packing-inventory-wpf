@@ -116,6 +116,9 @@
     <Compile Include="Services\ResponseModel\BaseResponseBarcodeInfo.cs" />
     <Compile Include="Services\ResponseModel\UserCredentials.cs" />
     <Compile Include="Services\ResponseModel\BarcodeInfo.cs" />
+    <Compile Include="UserControls\LoadingSpinner.xaml.cs">
+      <DependentUpon>LoadingSpinner.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\FabricProductViewModel.cs" />
     <Compile Include="ViewModels\YarnProductViewModel.cs" />
     <Page Include="MainWindow.xaml">
@@ -143,6 +146,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\YarnBarcodePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\LoadingSpinner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

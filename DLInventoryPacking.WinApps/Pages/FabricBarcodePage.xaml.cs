@@ -31,6 +31,7 @@ namespace DLInventoryPacking.WinApps.Pages
         {
             InitializeComponent();
             _barcodes = new List<BarcodeInfo>();
+            //pb.Visibility = Visibility.Hidden;
         }
 
         private void Quantity_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -41,6 +42,8 @@ namespace DLInventoryPacking.WinApps.Pages
 
         private async void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
+            FormGrid.IsEnabled = false;
+            //pb.Visibility = Visibility.Visible;
             var errorMessage = "Harap isi semua kolom berikut: \n";
             var anyError = false;
             if (string.IsNullOrWhiteSpace(CompositionTextBox.Text) || string.IsNullOrWhiteSpace(CompositionTextBox.Text))
@@ -89,6 +92,8 @@ namespace DLInventoryPacking.WinApps.Pages
 
             if (anyError)
             {
+                //FormGrid.IsEnabled = true;
+                //pb.Visibility = Visibility.Hidden;
                 MessageBox.Show(errorMessage);
             }
             else
@@ -124,17 +129,24 @@ namespace DLInventoryPacking.WinApps.Pages
                     _barcodes.Add(barcode);
                     BarcodeListView.Items.Add(barcode);
                 }
+
+                //FormGrid.IsEnabled = true;
+                //pb.Visibility = Visibility.Hidden;
                 MessageBox.Show("data berhasil disimpan");
             }
+
+            FormGrid.IsEnabled = true;
         }
 
         private void PrintButton_Click(object sender, RoutedEventArgs e)
         {
+            FormGrid.IsEnabled = false;
             if (BarcodeListView.Items.Count > 0)
             {
                 var printBarcodeJob = new BarcodePrintJob();
                 printBarcodeJob.PrintBarcode(_barcodes);
             }
+            FormGrid.IsEnabled = true;
         }
     }
 }

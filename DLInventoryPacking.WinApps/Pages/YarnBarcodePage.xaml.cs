@@ -41,6 +41,7 @@ namespace DLInventoryPacking.WinApps.Pages
 
         private async void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
+            FormGrid.IsEnabled = false;
             var errorMessage = "Harap isi semua kolom berikut: \n";
             var anyError = false;
             if (string.IsNullOrWhiteSpace(YarnTypePrefixTextBox.Text) || string.IsNullOrWhiteSpace(YarnTypeSuffixTextbox.Text))
@@ -100,6 +101,7 @@ namespace DLInventoryPacking.WinApps.Pages
                 }
                 MessageBox.Show("data berhasil disimpan");
             }
+            FormGrid.IsEnabled = true;
 
         }
 

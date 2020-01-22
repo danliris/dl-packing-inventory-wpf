@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,21 +32,27 @@ namespace DLInventoryPacking.WinApps
             InitializeComponent();
             MenuGrid.Visibility = Visibility.Hidden;
             LoginGrid.Visibility = Visibility.Visible;
-           
+            pb.Visibility = Visibility.Hidden;
+
         }
 
 
 
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
+            LoginGrid.IsEnabled = false;
+            pb.Visibility = Visibility.Visible;
             if (string.IsNullOrWhiteSpace(UsernameTextBox.Text) || string.IsNullOrWhiteSpace(PasswordTextBox.Password))
             {
+                pb.Visibility = Visibility.Hidden;
+                LoginGrid.IsEnabled = false;
                 MessageBox.Show("Username atau Password harus diisi!");
             }
             else
             {
                 UserCredentials.Token = await AuthService.Authenticate(UsernameTextBox.Text, PasswordTextBox.Password);
-
+                pb.Visibility = Visibility.Hidden;
+                LoginGrid.IsEnabled = false;
                 if (string.IsNullOrWhiteSpace(UserCredentials.Token))
                 {
                     MessageBox.Show("Username atau Password salah!");

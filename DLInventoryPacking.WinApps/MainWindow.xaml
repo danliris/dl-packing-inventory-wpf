@@ -1,42 +1,33 @@
 ﻿<Window x:Class="DLInventoryPacking.WinApps.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DLInventoryPacking.WinApps"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="1000">
-    <Window.Background>
+    <!--<Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FF101466" Offset="0.053"/>
             <GradientStop Color="#FFFAF9F9" Offset="0.142"/>
             <GradientStop Color="#FFFAF9F9" Offset="0.831"/>
             <GradientStop Color="#FF101466" Offset="0.957"/>
         </LinearGradientBrush>
-    </Window.Background>
+    </Window.Background>-->
 
     <Grid>
-        <Grid x:Name="LoginGrid" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
+
+        <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="9*"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="1"  Visibility="Visible">
+            <Rectangle Fill="#FF101010"></Rectangle>
+            <TextBlock FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Left" Text="DAN LIRIS INVENTORY SYSTEM" Foreground="White" Margin="10, 0, 0, 0"></TextBlock>
 
-                <Image
-                HorizontalAlignment="Left" Name="img" Height="174" Margin="150,0,0,16.4" VerticalAlignment="Bottom" Width="164" Source="/Resource/logo.png"/>
-            </Grid>
-
-            <Grid Grid.Column="1" Grid.Row="1">
+            <Grid x:Name="LoginGrid" Background="#FF173250" Grid.Row="2">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
@@ -44,45 +35,65 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
-
                 </Grid.RowDefinitions>
 
-                <Label Content="Username" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20"></Label>
-                <TextBox x:Name="UsernameTextBox" Grid.Column="1" VerticalAlignment="Center" FontSize="20"></TextBox>
+                <ProgressBar Grid.Row="2" Grid.Column="1" x:Name="pb" Width="330" Height="20" VerticalAlignment="Top" HorizontalAlignment="Center" IsIndeterminate="True" Background="Transparent"></ProgressBar>
 
-                <Label Grid.Row="1" Content="Password" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20"></Label>
-                <PasswordBox x:Name="PasswordTextBox" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" FontSize="20"></PasswordBox>
+                <Grid Grid.Column="1" Grid.Row="1" Background="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
 
-                <Button x:Name="LoginButton" Content="Login" FontSize="20" Grid.Column="1" Grid.Row="2" MinWidth="100" MinHeight="40" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0.2,0,0,11.6" Click="LoginButton_Click"></Button>
-            </Grid>
-        </Grid>
+                    </Grid.RowDefinitions>
 
-        <Grid x:Name="MenuGrid">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="4*"/>
-            </Grid.ColumnDefinitions>
+                    <TextBlock Text="Sign In" FontSize="30" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
 
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
+                    <Label Grid.Row="1" Content="Username" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20" Margin="1"></Label>
+                    <TextBox Grid.Row="1" x:Name="UsernameTextBox" Grid.Column="1" VerticalAlignment="Center" FontSize="20" Margin="1"></TextBox>
 
-                <Button x:Name="DashboardButton" Grid.Row="1" Content="Dashboard" FontSize="18" Click="DashboardButton_Click"></Button>
-                <Button x:Name="YarnBarcodeButton" Grid.Row="2" Content="Barcode Benang" FontSize="18" Click="YarnBarcodeButton_Click"></Button>
-                <Button x:Name="FabricBarcodeButton" Grid.Row="3" Content="Barcode Fabric" FontSize="18" Click="FabricBarcodeButton_Click"></Button>
-                <Button x:Name="GreigeBarcodeButton" Grid.Row="4" Content="Barcode Greige" FontSize="18" Click="GreigeBarcodeButton_Click"></Button>
+                    <Label Grid.Row="2" Content="Password" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20" Margin="1"></Label>
+                    <PasswordBox x:Name="PasswordTextBox" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" FontSize="20" Margin="1"></PasswordBox>
+
+                    <Button Background="#FF00B793"  x:Name="LoginButton" Content="Login" FontSize="20" Grid.Column="1" Grid.Row="3" Margin="1" VerticalAlignment="Center" HorizontalAlignment="Left" Click="LoginButton_Click"></Button>
+                </Grid>
             </Grid>
 
-            <DockPanel Grid.Column="1">
-                <Frame x:Name="_NavigationFrame" NavigationUIVisibility="Hidden"></Frame>
-            </DockPanel>
+            <Grid Grid.Row="1" x:Name="MenuGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Background="#FF173250">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="3*"/>
+                    </Grid.RowDefinitions>
+
+
+                    <!--<Image HorizontalAlignment="Center" Name="img" Source="/Resource/logo.png" Width="75" Height="75"/>-->
+                    
+                    <Button HorizontalContentAlignment="Left" Padding="10" Foreground="White" x:Name="DashboardButton" Content="Dashboard" FontSize="18" Click="DashboardButton_Click" Background="Transparent" BorderThickness="0"></Button>
+                    <Button HorizontalContentAlignment="Left" Padding="10" Foreground="White" x:Name="YarnBarcodeButton" Grid.Row="1" Content="Barcode Benang" FontSize="18" Click="YarnBarcodeButton_Click" Background="Transparent" BorderThickness="0"></Button>
+                    <Button HorizontalContentAlignment="Left" Padding="10" Foreground="White" x:Name="FabricBarcodeButton" Grid.Row="2" Content="Barcode Fabric" FontSize="18" Click="FabricBarcodeButton_Click" Background="Transparent" BorderThickness="0"></Button>
+                    <Button HorizontalContentAlignment="Left" Padding="10" Foreground="White" x:Name="GreigeBarcodeButton" Grid.Row="3" Content="Barcode Greige" FontSize="18" Click="GreigeBarcodeButton_Click" Background="Transparent" BorderThickness="0"></Button>
+                </Grid>
+
+                <DockPanel Grid.Column="1">
+                    <Frame x:Name="_NavigationFrame" NavigationUIVisibility="Hidden"></Frame>
+                </DockPanel>
+            </Grid>
         </Grid>
+        
     </Grid>
 </Window>
