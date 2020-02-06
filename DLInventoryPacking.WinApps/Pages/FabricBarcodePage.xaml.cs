@@ -31,7 +31,7 @@ namespace DLInventoryPacking.WinApps.Pages
         {
             InitializeComponent();
             _barcodes = new List<BarcodeInfo>();
-            //pb.Visibility = Visibility.Hidden;
+            pb.Visibility = Visibility.Hidden;
         }
 
         private void Quantity_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -98,6 +98,7 @@ namespace DLInventoryPacking.WinApps.Pages
             }
             else
             {
+                pb.Visibility = Visibility.Visible;
                 var viewModel = new ProductViewModel(
                     CompositionTextBox.Text,
                     $"{Construction1TextBox.Text} X {Construction2TextBox.Text}",
@@ -115,7 +116,7 @@ namespace DLInventoryPacking.WinApps.Pages
                     );
                 var barcode = await PackingInventoryService.PostProduct(viewModel);
 
-                if (barcode != null && !string.IsNullOrWhiteSpace(barcode.Code))
+                if (barcode != null && !string.IsNullOrWhiteSpace(barcode.PackingCode))
                 {
                     CompositionTextBox.Text = string.Empty;
                     Construction1TextBox.Text = string.Empty;
@@ -126,13 +127,14 @@ namespace DLInventoryPacking.WinApps.Pages
                     PackTypeComboBox.Text = string.Empty;
                     QuantityDecimalUpDown.Value = null;
 
-                    _barcodes.Add(barcode);
+                    _barcodes.Add(barcode); ;
                     BarcodeListView.Items.Add(barcode);
                 }
 
                 //FormGrid.IsEnabled = true;
                 //pb.Visibility = Visibility.Hidden;
                 MessageBox.Show("data berhasil disimpan");
+                pb.Visibility = Visibility.Hidden;
             }
 
             FormGrid.IsEnabled = true;
@@ -144,7 +146,7 @@ namespace DLInventoryPacking.WinApps.Pages
             if (BarcodeListView.Items.Count > 0)
             {
                 var printBarcodeJob = new BarcodePrintJob();
-                printBarcodeJob.PrintBarcode(_barcodes);
+                printBarcodeJob.PrintBartenderJob(_barcodes);
             }
             FormGrid.IsEnabled = true;
         }

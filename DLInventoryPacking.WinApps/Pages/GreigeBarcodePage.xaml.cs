@@ -31,6 +31,7 @@ namespace DLInventoryPacking.WinApps.Pages
         {
             InitializeComponent();
             _barcodes = new List<BarcodeInfo>();
+            pb.Visibility = Visibility.Hidden;
         }
 
         private void PrintButton_Click(object sender, RoutedEventArgs e)
@@ -38,7 +39,7 @@ namespace DLInventoryPacking.WinApps.Pages
             if (BarcodeListView.Items.Count > 0)
             {
                 var printBarcodeJob = new BarcodePrintJob();
-                printBarcodeJob.PrintBarcode(_barcodes);
+                printBarcodeJob.PrintBartenderJob(_barcodes);
             }
         }
 
@@ -97,6 +98,7 @@ namespace DLInventoryPacking.WinApps.Pages
             }
             else
             {
+                pb.Visibility = Visibility.Visible;
                 var viewModel = new ProductViewModel(
                     string.Empty,
                     $"{Construction1TextBox.Text} X {Construction2TextBox.Text}",
@@ -114,7 +116,7 @@ namespace DLInventoryPacking.WinApps.Pages
                     );
                 var barcode = await PackingInventoryService.PostProduct(viewModel);
 
-                if (barcode != null && !string.IsNullOrWhiteSpace(barcode.Code))
+                if (barcode != null && !string.IsNullOrWhiteSpace(barcode.PackingCode))
                 {
                     Construction1TextBox.Text = string.Empty;
                     Construction2TextBox.Text = string.Empty;
@@ -131,6 +133,7 @@ namespace DLInventoryPacking.WinApps.Pages
                     BarcodeListView.Items.Add(barcode);
                 }
                 MessageBox.Show("data berhasil disimpan");
+                pb.Visibility = Visibility.Hidden;
             }
 
             FormGrid.IsEnabled = true;
