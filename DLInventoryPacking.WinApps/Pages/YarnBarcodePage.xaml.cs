@@ -2,21 +2,11 @@
 using DLInventoryPacking.WinApps.Services;
 using DLInventoryPacking.WinApps.Services.ResponseModel;
 using DLInventoryPacking.WinApps.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DLInventoryPacking.WinApps.Pages
 {
@@ -31,6 +21,7 @@ namespace DLInventoryPacking.WinApps.Pages
         {
             InitializeComponent();
             _barcodes = new List<BarcodeInfo>();
+            pb.Visibility = Visibility.Hidden;
         }
 
         private void Quantity_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -41,6 +32,7 @@ namespace DLInventoryPacking.WinApps.Pages
 
         private async void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
+            FormGrid.IsEnabled = false;
             var errorMessage = "Harap isi semua kolom berikut: \n";
             var anyError = false;
             if (string.IsNullOrWhiteSpace(YarnTypePrefixTextBox.Text) || string.IsNullOrWhiteSpace(YarnTypeSuffixTextbox.Text))
@@ -55,12 +47,14 @@ namespace DLInventoryPacking.WinApps.Pages
                 errorMessage += "- Nomor Lot\n";
             }
 
-            decimal.TryParse(QuantityTextBox.Text, out var quantity);
-            if (string.IsNullOrWhiteSpace(QuantityTextBox.Text) || quantity <= 0)
-            {
-                anyError = true;
-                errorMessage += "- Quantity\n";
-            }
+            //decimal.TryParse(QuantityTextBox.Text, out var quantity);
+            //if (string.IsNullOrWhiteSpace(QuantityTextBox.Text) || quantity <= 0)
+            //{
+            //    anyError = true;
+            //    errorMessage += "- Quantity\n";
+            //}
+
+            //var quantity = QuantityDecimalUpDown.Value.GetValueOrDefault();
 
             if (anyError)
             {
@@ -68,6 +62,7 @@ namespace DLInventoryPacking.WinApps.Pages
             }
             else
             {
+                pb.Visibility = Visibility.Visible;
                 var viewModel = new ProductViewModel(
                     string.Empty,
                     string.Empty,
@@ -80,23 +75,27 @@ namespace DLInventoryPacking.WinApps.Pages
                     YarnTypePrefixTextBox.Text + YarnTypeSuffixTextbox.Text,
                     string.Empty,
                     "BALE",
-                    quantity,
+                    QuantityDecimalUpDown.Value.GetValueOrDefault(),
                     "PALET"
                     );
                 var barcode = await PackingInventoryService.PostProduct(viewModel);
 
-                if (barcode != null && !string.IsNullOrWhiteSpace(barcode.Code))
-                {
+                //if (barcode != null && !string.IsNullOrWhiteSpace(barcode.PackingCode))
+                if (barcode != null /*&& !string.IsNullOrWhiteSpace(barcode.PackingCode)*/)
+                    {
                     LotNoTextBox.Text = string.Empty;
                     YarnTypePrefixTextBox.Text = string.Empty;
                     YarnTypeSuffixTextbox.Text = string.Empty;
-                    QuantityTextBox.Text = string.Empty;
+                    //QuantityTextBox.Text = string.Empty;
+                    QuantityDecimalUpDown.Value = null;
 
                     _barcodes.Add(barcode);
                     BarcodeListView.Items.Add(barcode);
                 }
                 MessageBox.Show("data berhasil disimpan");
+                pb.Visibility = Visibility.Hidden;
             }
+            FormGrid.IsEnabled = true;
 
         }
 
@@ -105,7 +104,7 @@ namespace DLInventoryPacking.WinApps.Pages
             if (BarcodeListView.Items.Count > 0)
             {
                 var printBarcodeJob = new BarcodePrintJob();
-                printBarcodeJob.PrintBarcode(_barcodes);
+                printBarcodeJob.PrintBartenderJob(_barcodes);
             }
         }
     }

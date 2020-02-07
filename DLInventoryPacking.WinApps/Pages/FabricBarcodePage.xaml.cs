@@ -31,6 +31,7 @@ namespace DLInventoryPacking.WinApps.Pages
         {
             InitializeComponent();
             _barcodes = new List<BarcodeInfo>();
+            pb.Visibility = Visibility.Hidden;
         }
 
         private void Quantity_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -41,6 +42,8 @@ namespace DLInventoryPacking.WinApps.Pages
 
         private async void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
+            FormGrid.IsEnabled = false;
+            //pb.Visibility = Visibility.Visible;
             var errorMessage = "Harap isi semua kolom berikut: \n";
             var anyError = false;
             if (string.IsNullOrWhiteSpace(CompositionTextBox.Text) || string.IsNullOrWhiteSpace(CompositionTextBox.Text))
@@ -73,8 +76,9 @@ namespace DLInventoryPacking.WinApps.Pages
                 errorMessage += "- Grade\n";
             }
 
-            decimal.TryParse(QuantityTextBox.Text, out var quantity);
-            if (string.IsNullOrWhiteSpace(QuantityTextBox.Text) || quantity <= 0)
+            //decimal.TryParse(QuantityTextBox.Text, out var quantity);
+            var quantity = QuantityDecimalUpDown.Value.GetValueOrDefault();
+            if (quantity <= 0)
             {
                 anyError = true;
                 errorMessage += "- Quantity\n";
@@ -88,10 +92,13 @@ namespace DLInventoryPacking.WinApps.Pages
 
             if (anyError)
             {
+                //FormGrid.IsEnabled = true;
+                //pb.Visibility = Visibility.Hidden;
                 MessageBox.Show(errorMessage);
             }
             else
             {
+                pb.Visibility = Visibility.Visible;
                 var viewModel = new ProductViewModel(
                     CompositionTextBox.Text,
                     $"{Construction1TextBox.Text} X {Construction2TextBox.Text}",
@@ -109,7 +116,7 @@ namespace DLInventoryPacking.WinApps.Pages
                     );
                 var barcode = await PackingInventoryService.PostProduct(viewModel);
 
-                if (barcode != null && !string.IsNullOrWhiteSpace(barcode.Code))
+                if (barcode != null && !string.IsNullOrWhiteSpace(barcode.PackingCode))
                 {
                     CompositionTextBox.Text = string.Empty;
                     Construction1TextBox.Text = string.Empty;
@@ -118,22 +125,30 @@ namespace DLInventoryPacking.WinApps.Pages
                     GradeComboBox.Text = string.Empty;
                     WidthTextBox.Text = string.Empty;
                     PackTypeComboBox.Text = string.Empty;
-                    QuantityTextBox.Text = string.Empty;
+                    QuantityDecimalUpDown.Value = null;
 
-                    _barcodes.Add(barcode);
+                    _barcodes.Add(barcode); ;
                     BarcodeListView.Items.Add(barcode);
                 }
+
+                //FormGrid.IsEnabled = true;
+                //pb.Visibility = Visibility.Hidden;
                 MessageBox.Show("data berhasil disimpan");
+                pb.Visibility = Visibility.Hidden;
             }
+
+            FormGrid.IsEnabled = true;
         }
 
         private void PrintButton_Click(object sender, RoutedEventArgs e)
         {
+            FormGrid.IsEnabled = false;
             if (BarcodeListView.Items.Count > 0)
             {
                 var printBarcodeJob = new BarcodePrintJob();
-                printBarcodeJob.PrintBarcode(_barcodes);
+                printBarcodeJob.PrintBartenderJob(_barcodes);
             }
+            FormGrid.IsEnabled = true;
         }
     }
 }

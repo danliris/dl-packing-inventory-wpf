@@ -14,12 +14,12 @@ namespace DLInventoryPacking.WinApps.Services
     {
         public static async Task<string> Authenticate(string username, string password)
         {
-            var httpClient = new HttpClient();
+            //var httpClient = new HttpClient();
 
             var authenticationBody = new { username, password };
             var requestContent = new StringContent(JsonConvert.SerializeObject(authenticationBody), Encoding.UTF8, "application/json");
 
-            var response = await httpClient.PostAsync(APIEndpoint.AuthEndpoint + "authenticate", requestContent);
+            var response = await APIEndpoint.HttpClient.PostAsync(APIEndpoint.AuthEndpoint + "authenticate", requestContent);
 
             var tokenResult = new BaseResponse<string>();
             if (response.IsSuccessStatusCode)
@@ -33,7 +33,6 @@ namespace DLInventoryPacking.WinApps.Services
 
                 tokenResult = JsonConvert.DeserializeObject<BaseResponse<string>>(responseContentString, jsonSerializerSetting);
             }
-            httpClient.Dispose();
 
             return tokenResult.data;
         }
