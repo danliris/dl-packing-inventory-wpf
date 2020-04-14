@@ -22,6 +22,7 @@ namespace DLInventoryPacking.WinApps.Pages
             InitializeComponent();
             _barcodes = new List<BarcodeInfo>();
             pb.Visibility = Visibility.Hidden;
+            DeleteButton.IsEnabled = false;
         }
 
         private void Quantity_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -106,6 +107,30 @@ namespace DLInventoryPacking.WinApps.Pages
                 var printBarcodeJob = new BarcodePrintJob();
                 printBarcodeJob.PrintBartenderJob(_barcodes);
             }
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            //if (BarcodeListView.Items.)
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (ListViewItem listViewItem in BarcodeListView.SelectedItems)
+            {
+                BarcodeListView.Items.Remove(listViewItem);
+            }
+        }
+
+        private void BarcodeListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (BarcodeListView.SelectedItems.Count > 0)
+                DeleteButton.IsEnabled = true;
         }
     }
 }

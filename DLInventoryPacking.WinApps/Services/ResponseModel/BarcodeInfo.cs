@@ -16,5 +16,6 @@ namespace DLInventoryPacking.WinApps.Services.ResponseModel
         public string PackingType { get; set; }
         public int PackingId { get; set; }
         public string ProductSKUName { get; set; }
+        public bool IsChecked { get; set; }
     }
 }

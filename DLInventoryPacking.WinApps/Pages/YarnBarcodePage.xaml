@@ -14,7 +14,7 @@
             <RowDefinition Height="20*"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        
+
         <Grid x:Name="FormGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
@@ -68,9 +68,16 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
 
-                <ListView x:Name="BarcodeListView">
+                <ListView x:Name="BarcodeListView" SelectionMode="Multiple" SelectionChanged="BarcodeListView_SelectionChanged">
                     <ListView.View>
                         <GridView>
+                            <!--<GridViewColumn Header=" ">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding IsSelected}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>-->
                             <GridViewColumn Width="75" Header="Kode" DisplayMemberBinding="{Binding PackingCode}"/>
                             <GridViewColumn Width="75" Header="ID SKU" DisplayMemberBinding="{Binding SKUId}"/>
                             <GridViewColumn Width="75" Header="Kuantitas" DisplayMemberBinding="{Binding Quantity}"/>
@@ -80,7 +87,10 @@
                     </ListView.View>
                 </ListView>
 
-                <Button x:Name="PrintButton" Content="Print" Grid.Row="1" Width="50" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="PrintButton_Click"/>
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <Button x:Name="PrintButton" Content="Print" Width="50" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="PrintButton_Click"/>
+                    <Button x:Name="DeleteButton" Content="Remove From List" Width="100" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="DeleteButton_Click"/>
+                </StackPanel>
             </Grid>
         </Grid>
 
