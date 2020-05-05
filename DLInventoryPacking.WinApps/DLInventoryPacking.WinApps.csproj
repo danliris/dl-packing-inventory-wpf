@@ -180,6 +180,7 @@
     </ApplicationDefinition>
     <Compile Include="Enums\APIEndpoint.cs" />
     <Compile Include="Jobs\BarcodePrintJob.cs" />
+    <Compile Include="Jobs\ZebraPrinterHelper.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\PackingInventoryService.cs" />
     <Compile Include="Services\ResponseModel\BaseResponse.cs" />
