@@ -158,21 +158,34 @@ namespace DLInventoryPacking.WinApps.Jobs
 
         public void PrintBartenderJob(List<BarcodeInfo> barcodes)
         {
-            foreach (var barcode in barcodes)
+            MessageBox.Show("printing");
+            using (var btEngine = new Engine())
             {
-                using (var btEngine = new Engine())
+                try
                 {
-                    btEngine.Start();
-                    var btFormat = btEngine.Documents.Open(@"C:\Users\LeslieAula\Documents\BarTender\BarTender Documents\Document1.btw");
-                    btFormat.SubStrings["QRCodePayload"].Value = JsonConvert.SerializeObject(barcode);
-                    btFormat.SubStrings["PackingInformation"].Value = barcode.ProductSKUName + "\n" + barcode.PackingType;
-                    btFormat.SubStrings["ProductSKUQuantity"].Value = barcode.Quantity.ToString() + " " + barcode.UOMUnitSKU;
-                    btFormat.SubStrings["CreatedDate"].Value = DateTime.Now.ToString();
-                    //btFormat.
-                    var result = btFormat.Print();
 
-                    btEngine.Stop();
+                    foreach (var barcode in barcodes)
+                    {
+
+                        btEngine.Start();
+                        var btFormat = btEngine.Documents.Open(@"C:\Users\admin\Downloads\Demo\Document1.btw");
+                        btFormat.SubStrings["QRCodePayload"].Value = JsonConvert.SerializeObject(barcode);
+                        btFormat.SubStrings["PackingInformation"].Value = barcode.ProductSKUName + "\n" + barcode.PackingType;
+                        btFormat.SubStrings["ProductSKUQuantity"].Value = barcode.Quantity.ToString() + " " + barcode.UOMUnitSKU;
+                        btFormat.SubStrings["CreatedDate"].Value = DateTime.Now.ToString();
+                        //btFormat.
+                        var result = btFormat.Print();
+
+                        btEngine.Stop();
+                    }
                 }
+                catch (Exception e)
+                {
+                    if (btEngine.IsAlive)
+                        btEngine.Stop();
+                    MessageBox.Show(e.Message);
+                }
+
             }
 
             //using (var btTaskManager = new TaskManager())

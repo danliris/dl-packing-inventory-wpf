@@ -22,6 +22,7 @@ namespace DLInventoryPacking.WinApps.Pages
             InitializeComponent();
             _barcodes = new List<BarcodeInfo>();
             pb.Visibility = Visibility.Hidden;
+            DeleteButton.IsEnabled = false;
         }
 
         private void Quantity_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -99,13 +100,40 @@ namespace DLInventoryPacking.WinApps.Pages
 
         }
 
-        private void PrintButton_Click(object sender, RoutedEventArgs e)
+        private async void PrintButton_Click(object sender, RoutedEventArgs e)
         {
-            if (BarcodeListView.Items.Count > 0)
+            //if (BarcodeListView.Items.Count > 0)
+            //{
+            //    var printBarcodeJob = new BarcodePrintJob();
+            //    printBarcodeJob.PrintBartenderJob(_barcodes);
+            //}
+            var zpl1 = "CT~~CD,~CC^~CT~^XA~TA000~JSN^LT0^MNM,0^MTT^PON^PMN^LH0,0^JMA^PR3,3~SD30^JUS^LRN^CI27^PA0,1,1,0^XZ^XA^MMT^PW615^LL328^LS0^FWR^FO415,70^BQ,2,8^FDQA,200100001PALET^FS^FO380,80^AD,12,12^FD200100001PALET^FS^FO100,25^BY2^BC,75,Y,N,N^FD200100001^FS^FO306,65^AD,12,12^FDPC25 LOT 1^FS^FO280,65^AD,11,11^FD2 BALE^FS^FO0,25^AD,10,10^FD28/04/2020^FS^PQ1,0,1,Y^XZ";
+            var zpl2 = "CT~~CD,~CC^~CT~^XA~TA000~JSN^LT0^MNM,0^MTT^PON^PMN^LH0,0^JMA^PR3,3~SD30^JUS^LRN^CI27^PA0,1,1,0^XZ^XA^MMT^PW615^LL328^LS0^FWR^FO415,70^BQ,2,8^FDQA,FD200200002PCS^FS^FO380,80^AD,12,12^FD200200002PCS^FS^FO100,25^BY2^BC,75,Y,N,N^FD200200002^FS^FO306,65^AD,12,12^FDPC25 LOT 1^FS^FO280,65^AD,11,11^FD2 BALE^FS^FO0,25^AD,10,10^FD28/04/2020^FS^PQ1,0,1,Y^XZ";
+            await ZebraPrinterHelper.Print(zpl1 + zpl2 + zpl1);
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            //if (BarcodeListView.Items.)
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (ListViewItem listViewItem in BarcodeListView.SelectedItems)
             {
-                var printBarcodeJob = new BarcodePrintJob();
-                printBarcodeJob.PrintBartenderJob(_barcodes);
+                BarcodeListView.Items.Remove(listViewItem);
             }
+        }
+
+        private void BarcodeListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (BarcodeListView.SelectedItems.Count > 0)
+                DeleteButton.IsEnabled = true;
         }
     }
 }
