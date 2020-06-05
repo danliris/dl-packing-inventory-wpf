@@ -20,7 +20,7 @@ namespace DLInventoryPacking.WinApps.Jobs
 
             await Task.Run(() =>
             {
-                DiscoveredPrinter discoveredPrinter = GetUSBPrinter();
+                DiscoveredPrinter discoveredPrinter = GetNetworkPrinter();
 
                 ZebraPrinter printer = PrintHelper.Connect(discoveredPrinter, PrinterLanguage.ZPL);
                 PrintHelper.SetPageLanguage(printer);
@@ -35,6 +35,7 @@ namespace DLInventoryPacking.WinApps.Jobs
                 printer = PrintHelper.Disconnect(printer);
                 Console.WriteLine("Done Printing");
             });
+
         }
 
         public static DiscoveredPrinter GetUSBPrinter()
@@ -42,7 +43,7 @@ namespace DLInventoryPacking.WinApps.Jobs
             DiscoveredPrinter discoveredPrinter = null;
             try
             {
-                foreach (DiscoveredUsbPrinter usbPrinter in UsbDiscoverer.GetZebraUsbPrinters())
+                foreach (var usbPrinter in UsbDiscoverer.GetZebraUsbPrinters())
                 {
                     discoveredPrinter = usbPrinter;
                     Console.WriteLine(usbPrinter);
@@ -55,6 +56,62 @@ namespace DLInventoryPacking.WinApps.Jobs
 
             Console.WriteLine("Done discovering local printers.");
             return discoveredPrinter;
+        }
+
+        public static DiscoveredPrinter GetNetworkPrinter()
+        {
+            DiscoveredPrinter discoveredPrinter = null;
+            var handler = new DiscoverHandler();
+            NetworkDiscoverer.FindPrinters(handler);
+            handler.DiscoveryCompleteEvent.WaitOne();
+            var discoveredPrinters = handler.DiscoveredPrinters;
+            try
+            {
+                foreach (var networkPrinter in discoveredPrinters)
+                {
+                    discoveredPrinter = networkPrinter;
+                    Console.WriteLine(discoveredPrinter);
+                }
+            }
+            catch (ConnectionException e)
+            {
+                Console.WriteLine($"Error discovering local printers: {e.Message}");
+            }
+
+            Console.WriteLine("Done discovering local printers.");
+            return discoveredPrinter;
+        }
+    }
+
+    public class DiscoverHandler : DiscoveryHandler
+    {
+        private List<DiscoveredPrinter> printers = new List<DiscoveredPrinter>();
+        private AutoResetEvent discoCompleteEvent = new AutoResetEvent(false);
+
+        public void DiscoveryError(string message)
+        {
+            Console.WriteLine($"An error occurred during discovery: {message}.");
+            discoCompleteEvent.Set();
+        }
+
+        public void DiscoveryFinished()
+        {
+            discoCompleteEvent.Set();
+        }
+
+        public void FoundPrinter(DiscoveredPrinter printer)
+        {
+            printers.Add(printer);
+        }
+
+        public List<DiscoveredPrinter> DiscoveredPrinters
+        {
+            get => printers;
+        }
+
+        public AutoResetEvent DiscoveryCompleteEvent
+        {
+            get => discoCompleteEvent;
         }
     }
 
