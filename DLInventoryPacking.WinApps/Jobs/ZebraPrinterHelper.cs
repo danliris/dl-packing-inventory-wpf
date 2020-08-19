@@ -18,23 +18,53 @@ namespace DLInventoryPacking.WinApps.Jobs
         public static async Task Print(string zpl)
         {
 
-            await Task.Run(() =>
-            {
-                DiscoveredPrinter discoveredPrinter = GetUSBPrinter();
+            //await Task.Run(() =>
+            //{
+            //    DiscoveredPrinter discoveredPrinter = GetUSBPrinter();
 
-                ZebraPrinter printer = PrintHelper.Connect(discoveredPrinter, PrinterLanguage.ZPL);
-                PrintHelper.SetPageLanguage(printer);
-                if (PrintHelper.CheckStatus(printer))
+            //    ZebraPrinter printer = PrintHelper.Connect(discoveredPrinter, PrinterLanguage.ZPL);
+            //    PrintHelper.SetPageLanguage(printer);
+            //    if (PrintHelper.CheckStatus(printer))
+            //    {
+            //        PrintHelper.Print(printer, zpl);
+            //        if (PrintHelper.CheckStatusAfter(printer))
+            //        {
+            //            Console.WriteLine($"Label Printed");
+            //        }
+            //    }
+            //    printer = PrintHelper.Disconnect(printer);
+            //    Console.WriteLine("Done Printing");
+            //});
+
+            Connection thePrinterConn = null;
+            try
+            {
+                var ipAddress = "";
+                // Instantiate connection for ZPL TCP port at given address
+                thePrinterConn = ConnectionBuilder.Build($"TCP:{ipAddress}:9100");
+
+                // Open the connection - physical connection is established here.
+                thePrinterConn.Open();
+
+                // This example prints "This is a ZPL test." near the top of the label.
+                //string zplData = "^XA^FO20,20^A0N,25,25^FDThis is a ZPL test.^FS^XZ";
+
+                // Send the data to printer as a byte array.
+                thePrinterConn.Write(Encoding.UTF8.GetBytes(zpl));
+            }
+            catch (ConnectionException e)
+            {
+                // Handle communications error here.
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                // Close the connection to release resources.
+                if (thePrinterConn != null)
                 {
-                    PrintHelper.Print(printer, zpl);
-                    if (PrintHelper.CheckStatusAfter(printer))
-                    {
-                        Console.WriteLine($"Label Printed");
-                    }
+                    thePrinterConn.Close();
                 }
-                printer = PrintHelper.Disconnect(printer);
-                Console.WriteLine("Done Printing");
-            });
+            }
 
         }
 
@@ -48,6 +78,28 @@ namespace DLInventoryPacking.WinApps.Jobs
                     discoveredPrinter = usbPrinter;
                     Console.WriteLine(usbPrinter);
                 }
+            }
+            catch (ConnectionException e)
+            {
+                Console.WriteLine($"Error discovering local printers: {e.Message}");
+            }
+
+            Console.WriteLine("Done discovering local printers.");
+            return discoveredPrinter;
+        }
+
+        public static DiscoveredPrinter GetNetworkPrinter()
+        {
+            DiscoveredPrinter discoveredPrinter = null;
+            var networkHandler = new NetworkDiscoveryHandler();
+            try
+            {
+                //foreach (var usbPrinter in NetworkDiscoverer.FindPrinters(networkHandler))
+                //{
+                //    discoveredPrinter = usbPrinter;
+                //    Console.WriteLine(usbPrinter);
+                //}
+                //discoveredPrinter = NetworkDiscoverer.FindPrinters(networkHandler);
             }
             catch (ConnectionException e)
             {
@@ -254,6 +306,39 @@ namespace DLInventoryPacking.WinApps.Jobs
                 Console.WriteLine($"Error disconnecting from printer: {e.Message}");
             }
             return printer;
+        }
+    }
+
+    public class NetworkDiscoveryHandler : DiscoveryHandler
+    {
+
+        private bool discoveryComplete = false;
+        List<DiscoveredPrinter> printers = new List<DiscoveredPrinter>();
+
+        public void DiscoveryError(string message)
+        {
+            Console.WriteLine($"An error occurred during discovery: {message}.");
+            discoveryComplete = true;
+        }
+
+        public void DiscoveryFinished()
+        {
+            foreach (DiscoveredPrinter printer in printers)
+            {
+                Console.WriteLine(printer);
+            }
+            Console.WriteLine($"Discovered {printers.Count} Link-OS(TM) printers.");
+            discoveryComplete = true;
+        }
+
+        public void FoundPrinter(DiscoveredPrinter printer)
+        {
+            printers.Add(printer);
+        }
+
+        public bool DiscoveryComplete
+        {
+            get => discoveryComplete;
         }
     }
 }
