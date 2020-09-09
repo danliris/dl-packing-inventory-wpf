@@ -169,10 +169,10 @@ namespace DLInventoryPacking.WinApps.Jobs
 
                         btEngine.Start();
                         var btFormat = btEngine.Documents.Open(@"C:\Users\admin\Downloads\Demo\Document1.btw");
-                        btFormat.SubStrings["QRCodePayload"].Value = JsonConvert.SerializeObject(barcode);
-                        btFormat.SubStrings["PackingInformation"].Value = barcode.ProductSKUName + "\n" + barcode.PackingType;
-                        btFormat.SubStrings["ProductSKUQuantity"].Value = barcode.Quantity.ToString() + " " + barcode.UOMUnitSKU;
-                        btFormat.SubStrings["CreatedDate"].Value = DateTime.Now.ToString();
+                        //btFormat.SubStrings["QRCodePayload"].Value = JsonConvert.SerializeObject(barcode);
+                        //btFormat.SubStrings["PackingInformation"].Value = barcode.ProductSKUName + "\n" + barcode.PackingType;
+                        //btFormat.SubStrings["ProductSKUQuantity"].Value = barcode.Quantity.ToString() + " " + barcode.UOMUnitSKU;
+                        //btFormat.SubStrings["CreatedDate"].Value = DateTime.Now.ToString();
                         //btFormat.
                         var result = btFormat.Print();
 
@@ -238,10 +238,10 @@ namespace DLInventoryPacking.WinApps.Jobs
                 formatDoc = Engine.Documents.Open(format, out messages);
 
                 // Set some substrings on the label 
-                formatDoc.SubStrings["QRCodePayload"].Value = JsonConvert.SerializeObject(_barcode);
-                formatDoc.SubStrings["PackingInformation"].Value = _barcode.ProductSKUName + "\n" + _barcode.PackingType;
-                formatDoc.SubStrings["ProductSKUQuantity"].Value = _barcode.Quantity.ToString() + " " + _barcode.UOMUnitSKU;
-                formatDoc.SubStrings["CreatedDate"].Value = DateTime.Now.ToString();
+                //formatDoc.SubStrings["QRCodePayload"].Value = JsonConvert.SerializeObject(_barcode);
+                //formatDoc.SubStrings["PackingInformation"].Value = _barcode.ProductSKUName + "\n" + _barcode.PackingType;
+                //formatDoc.SubStrings["ProductSKUQuantity"].Value = _barcode.Quantity.ToString() + " " + _barcode.UOMUnitSKU;
+                //formatDoc.SubStrings["CreatedDate"].Value = DateTime.Now.ToString();
                 formatDoc.PrintSetup.UseDatabase = false;
 
                 // Print the label 
