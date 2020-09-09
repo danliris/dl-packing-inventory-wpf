@@ -8,6 +8,6 @@ namespace DLInventoryPacking.WinApps.Services.ResponseModel
 {
     public class BaseResponseBarcodeInfo<T>
     {
-        public T BarcodeInfo { get; set; }
+        public T data { get; set; }
     }
 }

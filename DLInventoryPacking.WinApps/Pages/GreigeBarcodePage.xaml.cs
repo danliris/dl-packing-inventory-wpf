@@ -114,24 +114,24 @@ namespace DLInventoryPacking.WinApps.Pages
                     quantity,
                     "PCS"
                     );
-                var barcode = await PackingInventoryService.PostProduct(viewModel);
+                //var barcode = await PackingInventoryService.PostProduct(viewModel);
 
-                if (barcode != null && !string.IsNullOrWhiteSpace(barcode.PackingCode))
-                {
-                    Construction1TextBox.Text = string.Empty;
-                    Construction2TextBox.Text = string.Empty;
-                    WidthTextBox.Text = string.Empty;
-                    GradeTextBox.Text = string.Empty;
-                    WovenTypeTextBox.Text = string.Empty;
-                    YarnType1PrefixTextBox.Text = string.Empty;
-                    YarnType1SuffixTextBox.Text = string.Empty;
-                    YarnType2PrefixTextBox.Text = string.Empty;
-                    YarnType2SuffixTextBox.Text = string.Empty;
-                    QuantityDecimalUpDown.Value = null;
+                //if (barcode != null && !string.IsNullOrWhiteSpace(barcode.PackingCode))
+                //{
+                //    Construction1TextBox.Text = string.Empty;
+                //    Construction2TextBox.Text = string.Empty;
+                //    WidthTextBox.Text = string.Empty;
+                //    GradeTextBox.Text = string.Empty;
+                //    WovenTypeTextBox.Text = string.Empty;
+                //    YarnType1PrefixTextBox.Text = string.Empty;
+                //    YarnType1SuffixTextBox.Text = string.Empty;
+                //    YarnType2PrefixTextBox.Text = string.Empty;
+                //    YarnType2SuffixTextBox.Text = string.Empty;
+                //    QuantityDecimalUpDown.Value = null;
 
-                    _barcodes.Add(barcode);
-                    BarcodeListView.Items.Add(barcode);
-                }
+                //    _barcodes.Add(barcode);
+                //    BarcodeListView.Items.Add(barcode);
+                //}
                 MessageBox.Show("data berhasil disimpan");
                 pb.Visibility = Visibility.Hidden;
             }

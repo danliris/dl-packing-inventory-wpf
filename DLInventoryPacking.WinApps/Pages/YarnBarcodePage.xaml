@@ -18,14 +18,14 @@
         <Grid x:Name="FormGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
 
             <Grid>
-                <Grid.ColumnDefinitions>
+                <!--<Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+                </Grid.ColumnDefinitions>-->
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2*"/>
                     <RowDefinition/>
@@ -38,8 +38,26 @@
                     <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
 
-                <Label Content="Barcode Benang" FontSize="20" FontWeight="Bold"/>
-                <Label Content="Barang" FontSize="18" FontWeight="Bold" Grid.Row="1"/>
+                <Label Content="Barcode Dyeing Printing" FontSize="18" FontWeight="Bold"/>
+
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Nomor SPP" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBox x:Name="OrderNo" Width="120" FontSize="18" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Grid>
+
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="SearchSPPButton" Content="Cari" FontSize="18" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Click="SubmitButton_Click"/>
+
+                </Grid>
+                <!--<Label Content="Barang" FontSize="18" FontWeight="Bold" Grid.Row="1"/>
 
                 <Label Content="Jenis Benang" FontSize="18" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                 <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
@@ -56,10 +74,12 @@
                 <Label Content="Bale" FontSize="18" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
                 <Label Content="Quantity" FontSize="18" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                -->
                 <!--<TextBox x:Name="QuantityTextBox" Width="100" FontSize="18" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" PreviewTextInput="Quantity_PreviewTextInput"/>-->
+                <!--
                 <xctk:DecimalUpDown x:Name="QuantityDecimalUpDown" FormatString="F4" Increment=".001" Width="100" FontSize="18" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
-                <Button x:Name="SubmitButton" Content="Submit" FontSize="18" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Click="SubmitButton_Click"/>
+                <Button x:Name="SubmitButton" Content="Submit" FontSize="18" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Click="SubmitButton_Click"/>-->
             </Grid>
 
             <Grid Grid.Column="1">
@@ -78,11 +98,11 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>-->
-                            <GridViewColumn Width="75" Header="Kode" DisplayMemberBinding="{Binding PackingCode}"/>
-                            <GridViewColumn Width="75" Header="ID SKU" DisplayMemberBinding="{Binding SKUId}"/>
-                            <GridViewColumn Width="75" Header="Kuantitas" DisplayMemberBinding="{Binding Quantity}"/>
-                            <GridViewColumn Width="75" Header="Satuan" DisplayMemberBinding="{Binding UOMUnitSKU}"/>
-                            <GridViewColumn Width="75" Header="Tipe Pack" DisplayMemberBinding="{Binding PackingType}"/>
+                            <GridViewColumn Width="75" Header="Kode Packing" DisplayMemberBinding="{Binding PackingCode}"/>
+                            <GridViewColumn Width="75" Header="Nomor SPP" DisplayMemberBinding="{Binding OrderNo}"/>
+                            <GridViewColumn Width="100" Header="Ukuran Packing" DisplayMemberBinding="{Binding PackingLength}"/>
+                            <GridViewColumn Width="75" Header="Satuan" DisplayMemberBinding="{Binding UOMSKU}"/>
+                            <GridViewColumn Width="75" Header="Jenis Pack" DisplayMemberBinding="{Binding PackingType}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>

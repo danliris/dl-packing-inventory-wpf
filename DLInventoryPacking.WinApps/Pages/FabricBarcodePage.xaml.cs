@@ -114,22 +114,22 @@ namespace DLInventoryPacking.WinApps.Pages
                     quantity,
                     PackTypeComboBox.Text
                     );
-                var barcode = await PackingInventoryService.PostProduct(viewModel);
+                //var barcode = await PackingInventoryService.PostProduct(viewModel);
 
-                if (barcode != null && !string.IsNullOrWhiteSpace(barcode.PackingCode))
-                {
-                    CompositionTextBox.Text = string.Empty;
-                    Construction1TextBox.Text = string.Empty;
-                    Construction2TextBox.Text = string.Empty;
-                    DesignTextBox.Text = string.Empty;
-                    GradeComboBox.Text = string.Empty;
-                    WidthTextBox.Text = string.Empty;
-                    PackTypeComboBox.Text = string.Empty;
-                    QuantityDecimalUpDown.Value = null;
+                //if (barcode != null && !string.IsNullOrWhiteSpace(barcode.PackingCode))
+                //{
+                //    CompositionTextBox.Text = string.Empty;
+                //    Construction1TextBox.Text = string.Empty;
+                //    Construction2TextBox.Text = string.Empty;
+                //    DesignTextBox.Text = string.Empty;
+                //    GradeComboBox.Text = string.Empty;
+                //    WidthTextBox.Text = string.Empty;
+                //    PackTypeComboBox.Text = string.Empty;
+                //    QuantityDecimalUpDown.Value = null;
 
-                    _barcodes.Add(barcode); ;
-                    BarcodeListView.Items.Add(barcode);
-                }
+                //    _barcodes.Add(barcode); ;
+                //    BarcodeListView.Items.Add(barcode);
+                //}
 
                 //FormGrid.IsEnabled = true;
                 //pb.Visibility = Visibility.Hidden;
