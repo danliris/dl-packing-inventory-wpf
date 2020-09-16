@@ -4,6 +4,7 @@ using DLInventoryPacking.WinApps.Services.ResponseModel;
 using DLInventoryPacking.WinApps.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,6 +25,7 @@ namespace DLInventoryPacking.WinApps.Pages
             _barcodes = new List<BarcodeInfo>();
             pb.Visibility = Visibility.Hidden;
             DeleteButton.IsEnabled = false;
+            //PrintButton.IsEnabled = false;
         }
 
         private void Quantity_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -82,6 +84,8 @@ namespace DLInventoryPacking.WinApps.Pages
                 //    );
                 var barcodeList = await PackingInventoryService.GetBarcodeInfoByOrderNo(OrderNo.Text);
 
+                _barcodes = new List<BarcodeInfo>();
+                BarcodeListView.Items.Clear();
                 foreach (var barcode in barcodeList)
                 {
                     foreach (var packingCode in barcode.productPackingCodes)
@@ -134,7 +138,8 @@ namespace DLInventoryPacking.WinApps.Pages
             //}
 
             var zplString = "";
-            foreach (var barcode in _barcodes)
+            var barcodes = BarcodeListView.Items.Cast<BarcodeInfo>().ToList();
+            foreach (var barcode in barcodes)
             {
                 zplString += $"^XA^MMT^PW382^LL0635^LS0^CFB,15,7^FO20,250^FDAnyaman^FS^FO150,250^FD{barcode.MaterialName}^FS^FO20,275^FDKonstruksi^FS^FO150,275^FD{barcode.MaterialConstructionName}^FS^FO250,275^FD{barcode.YarnMaterialName}^FS^FO20,300^FDPanjang^FS^FO150,300^FD{barcode.PackingLength}^FS^FO250,300^FD{barcode.UOMSKU}^FS^FO20,325^FDMotif/Warna^FS^FO150,325^FD{barcode.Color}^FS^FO20,550^FD{DateTime.Now}^FS^FT131,169^BQN,2,5^FH\\^FDLA,{barcode.PackingCode}^FS^FT122,182^A0N,16,21^FB125,1,0,C^FH\\^FD{barcode.PackingCode}^FS^PQ1,0,1,Y^XZ";
             }
@@ -154,16 +159,24 @@ namespace DLInventoryPacking.WinApps.Pages
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            foreach (ListViewItem listViewItem in BarcodeListView.SelectedItems)
+            var selectedItems = BarcodeListView.SelectedItems.Cast<BarcodeInfo>().ToArray();
+            foreach (var item in selectedItems)
             {
-                BarcodeListView.Items.Remove(listViewItem);
+                BarcodeListView.Items.Remove(item);
             }
+        }
+
+        private void ClearButton_Click(object sender, RoutedEventArgs e)
+        {
+            BarcodeListView.Items.Clear();
         }
 
         private void BarcodeListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (BarcodeListView.SelectedItems.Count > 0)
+            {
                 DeleteButton.IsEnabled = true;
+            }
         }
     }
 }
