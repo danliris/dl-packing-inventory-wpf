@@ -56,6 +56,7 @@ namespace DLInventoryPacking.WinApps
                 if (string.IsNullOrWhiteSpace(UserCredentials.Token))
                 {
                     MessageBox.Show("Username atau Password salah!");
+                    LoginGrid.IsEnabled = true;
                 }
                 else
                 {
@@ -65,13 +66,13 @@ namespace DLInventoryPacking.WinApps
                 }
             }
 
-            
+
         }
 
         private void DashboardButton_Click(object sender, RoutedEventArgs e)
         {
 
-            
+
             _NavigationFrame.Navigate(new HomePage());
         }
 
@@ -95,7 +96,7 @@ namespace DLInventoryPacking.WinApps
         private void FabricBarcodeButton_Click(object sender, RoutedEventArgs e)
         {
 
-         
+
 
             if (Yarnpage.BarcodeListView.Items.Count > 0)
             {
@@ -118,11 +119,11 @@ namespace DLInventoryPacking.WinApps
         private void GreigeBarcodeButton_Click(object sender, RoutedEventArgs e)
         {
 
-            if (Fabricpage.BarcodeListView.Items.Count >0)
+            if (Fabricpage.BarcodeListView.Items.Count > 0)
             {
                 MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
             }
-            else if (Greigepage.BarcodeListView.Items.Count >0)
+            else if (Greigepage.BarcodeListView.Items.Count > 0)
             {
                 MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
             }
