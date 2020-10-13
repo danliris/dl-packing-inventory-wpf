@@ -109,6 +109,7 @@
 
                 <StackPanel Orientation="Horizontal" Grid.Row="1">
                     <Button x:Name="PrintButton" Content="Print" Width="50" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="PrintButton_Click"/>
+                    <Button x:Name="PrintSelectedButton" Content="Print Selected" Width="100" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="PrintSelectedButton_Click"/>
                     <Button x:Name="DeleteButton" Content="Remove From List" Width="100" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="DeleteButton_Click"/>
                     <Button x:Name="ClearButton" Content="Clear List" Width="100" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="ClearButton_Click"/>
                 </StackPanel>
