@@ -15,7 +15,7 @@ namespace DLInventoryPacking.WinApps.Jobs
 {
     public static class ZebraPrinterHelper
     {
-        public static async Task Print(string zpl)
+        public static void Print(string zpl)
         {
 
             //await Task.Run(() =>

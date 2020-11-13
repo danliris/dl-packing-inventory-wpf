@@ -40,7 +40,7 @@ namespace DLInventoryPacking.WinApps.Pages
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private async void SubmitButton_Click(object sender, RoutedEventArgs e)
+        private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
             FormGrid.IsEnabled = false;
             //pb.Visibility = Visibility.Visible;
@@ -146,7 +146,7 @@ namespace DLInventoryPacking.WinApps.Pages
             if (BarcodeListView.Items.Count > 0)
             {
                 var printBarcodeJob = new BarcodePrintJob();
-                printBarcodeJob.PrintBartenderJob(_barcodes);
+                //printBarcodeJob.PrintBartenderJob(_barcodes);
             }
             FormGrid.IsEnabled = true;
         }

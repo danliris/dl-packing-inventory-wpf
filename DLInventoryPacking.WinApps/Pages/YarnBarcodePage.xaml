@@ -54,7 +54,19 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="SearchSPPButton" Content="Cari" FontSize="18" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Click="SubmitButton_Click"/>
+                    <Label Content="" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Grid Grid.Column="1">
+
+                        <CheckBox Name="IsReprint">Re-print</CheckBox>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="SearchSPPButton" Content="Cari" FontSize="18" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Click="SubmitButton_Click"/>
 
                 </Grid>
                 <!--<Label Content="Barang" FontSize="18" FontWeight="Bold" Grid.Row="1"/>
