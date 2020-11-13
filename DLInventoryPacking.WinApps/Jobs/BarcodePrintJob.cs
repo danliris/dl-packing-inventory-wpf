@@ -1,9 +1,9 @@
 ﻿using DLInventoryPacking.WinApps.Services.ResponseModel;
 using Newtonsoft.Json;
 using QRCoder;
-using Seagull.BarTender.Print;
-using Seagull.BarTender.PrintServer;
-using Seagull.BarTender.PrintServer.Tasks;
+//using Seagull.BarTender.Print;
+//using Seagull.BarTender.PrintServer;
+//using Seagull.BarTender.PrintServer.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -156,141 +156,141 @@ namespace DLInventoryPacking.WinApps.Jobs
 
         }
 
-        public void PrintBartenderJob(List<BarcodeInfo> barcodes)
-        {
-            MessageBox.Show("printing");
-            using (var btEngine = new Engine())
-            {
-                try
-                {
+        //public void PrintBartenderJob(List<BarcodeInfo> barcodes)
+        //{
+        //    MessageBox.Show("printing");
+        //    using (var btEngine = new Engine())
+        //    {
+        //        try
+        //        {
 
-                    foreach (var barcode in barcodes)
-                    {
+        //            foreach (var barcode in barcodes)
+        //            {
 
-                        btEngine.Start();
-                        var btFormat = btEngine.Documents.Open(@"C:\Users\admin\Downloads\Demo\Document1.btw");
-                        //btFormat.SubStrings["QRCodePayload"].Value = JsonConvert.SerializeObject(barcode);
-                        //btFormat.SubStrings["PackingInformation"].Value = barcode.ProductSKUName + "\n" + barcode.PackingType;
-                        //btFormat.SubStrings["ProductSKUQuantity"].Value = barcode.Quantity.ToString() + " " + barcode.UOMUnitSKU;
-                        //btFormat.SubStrings["CreatedDate"].Value = DateTime.Now.ToString();
-                        //btFormat.
-                        var result = btFormat.Print();
+        //                btEngine.Start();
+        //                var btFormat = btEngine.Documents.Open(@"C:\Users\admin\Downloads\Demo\Document1.btw");
+        //                //btFormat.SubStrings["QRCodePayload"].Value = JsonConvert.SerializeObject(barcode);
+        //                //btFormat.SubStrings["PackingInformation"].Value = barcode.ProductSKUName + "\n" + barcode.PackingType;
+        //                //btFormat.SubStrings["ProductSKUQuantity"].Value = barcode.Quantity.ToString() + " " + barcode.UOMUnitSKU;
+        //                //btFormat.SubStrings["CreatedDate"].Value = DateTime.Now.ToString();
+        //                //btFormat.
+        //                var result = btFormat.Print();
 
-                        btEngine.Stop();
-                    }
-                }
-                catch (Exception e)
-                {
-                    if (btEngine.IsAlive)
-                        btEngine.Stop();
-                    MessageBox.Show(e.Message);
-                }
+        //                btEngine.Stop();
+        //            }
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            if (btEngine.IsAlive)
+        //                btEngine.Stop();
+        //            MessageBox.Show(e.Message);
+        //        }
 
-            }
+        //    }
 
-            //using (var btTaskManager = new TaskManager())
-            //{
-            //    btTaskManager.Start(1);
+        //    //using (var btTaskManager = new TaskManager())
+        //    //{
+        //    //    btTaskManager.Start(1);
 
-            //    var groupTask = new GroupTask();
+        //    //    var groupTask = new GroupTask();
 
-            //    foreach (var barcode in barcodes)
-            //    {
-            //        //var btFormat = new LabelFormat(@"C:\Users\LeslieAula\Documents\BarTender\BarTender Documents\Template2DL.btw");
-            //        //btFormat.SubStrings["QRCodePayload"].Value = JsonConvert.SerializeObject(barcode);
-            //        //btFormat.SubStrings["PackingInformation"].Value = barcode.ProductSKUName + "\n" + barcode.PackingType;
-            //        //btFormat.SubStrings["ProductSKUQuantity"].Value = barcode.Quantity.ToString() + " " + barcode.UOMUnitSKU;
-            //        //btFormat.SubStrings["CreatedDate"].Value = DateTime.Now.ToString();
+        //    //    foreach (var barcode in barcodes)
+        //    //    {
+        //    //        //var btFormat = new LabelFormat(@"C:\Users\LeslieAula\Documents\BarTender\BarTender Documents\Template2DL.btw");
+        //    //        //btFormat.SubStrings["QRCodePayload"].Value = JsonConvert.SerializeObject(barcode);
+        //    //        //btFormat.SubStrings["PackingInformation"].Value = barcode.ProductSKUName + "\n" + barcode.PackingType;
+        //    //        //btFormat.SubStrings["ProductSKUQuantity"].Value = barcode.Quantity.ToString() + " " + barcode.UOMUnitSKU;
+        //    //        //btFormat.SubStrings["CreatedDate"].Value = DateTime.Now.ToString();
 
-            //        //var printTask = new PrintLabelFormatTask(btFormat);
-            //        var task = new CustomTask(@"C:\Users\LeslieAula\Documents\BarTender\BarTender Documents\Template2DL.btw", barcode);
-            //        groupTask.Add(task);
-            //    }
+        //    //        //var printTask = new PrintLabelFormatTask(btFormat);
+        //    //        var task = new CustomTask(@"C:\Users\LeslieAula\Documents\BarTender\BarTender Documents\Template2DL.btw", barcode);
+        //    //        groupTask.Add(task);
+        //    //    }
 
-            //    btTaskManager.TaskQueue.QueueTask(groupTask);
+        //    //    btTaskManager.TaskQueue.QueueTask(groupTask);
 
-            //    btTaskManager.Stop(5000, true);
-            //}
-        }
+        //    //    btTaskManager.Stop(5000, true);
+        //    //}
+        //}
     }
 
-    public class CustomTask : Task
-    {
-        private LabelFormat format;
-        private BarcodeInfo _barcode;
+    //public class CustomTask : Task
+    //{
+    //    private LabelFormat format;
+    //    private BarcodeInfo _barcode;
 
-        // Initialize the LabelFormat object. 
-        public CustomTask(string labelFormatFileName, BarcodeInfo barcode)
-        {
-            format = new LabelFormat(labelFormatFileName);
-            _barcode = barcode;
-        }
+    //    // Initialize the LabelFormat object. 
+    //    public CustomTask(string labelFormatFileName, BarcodeInfo barcode)
+    //    {
+    //        format = new LabelFormat(labelFormatFileName);
+    //        _barcode = barcode;
+    //    }
 
-        // Override this method to perform custom Task logic. 
-        // This sample method writes values to the named 
-        // substrings on the label and then prints the label. 
-        protected override bool OnRun()
-        {
-            LabelFormatDocument formatDoc = null;
-            try
-            {
-                // Open a LabelFormatDocument by using the LabelFormat that was passed in 
-                formatDoc = Engine.Documents.Open(format, out messages);
+    //    // Override this method to perform custom Task logic. 
+    //    // This sample method writes values to the named 
+    //    // substrings on the label and then prints the label. 
+    //    protected override bool OnRun()
+    //    {
+    //        LabelFormatDocument formatDoc = null;
+    //        try
+    //        {
+    //            // Open a LabelFormatDocument by using the LabelFormat that was passed in 
+    //            formatDoc = Engine.Documents.Open(format, out messages);
 
-                // Set some substrings on the label 
-                //formatDoc.SubStrings["QRCodePayload"].Value = JsonConvert.SerializeObject(_barcode);
-                //formatDoc.SubStrings["PackingInformation"].Value = _barcode.ProductSKUName + "\n" + _barcode.PackingType;
-                //formatDoc.SubStrings["ProductSKUQuantity"].Value = _barcode.Quantity.ToString() + " " + _barcode.UOMUnitSKU;
-                //formatDoc.SubStrings["CreatedDate"].Value = DateTime.Now.ToString();
-                formatDoc.PrintSetup.UseDatabase = false;
+    //            // Set some substrings on the label 
+    //            //formatDoc.SubStrings["QRCodePayload"].Value = JsonConvert.SerializeObject(_barcode);
+    //            //formatDoc.SubStrings["PackingInformation"].Value = _barcode.ProductSKUName + "\n" + _barcode.PackingType;
+    //            //formatDoc.SubStrings["ProductSKUQuantity"].Value = _barcode.Quantity.ToString() + " " + _barcode.UOMUnitSKU;
+    //            //formatDoc.SubStrings["CreatedDate"].Value = DateTime.Now.ToString();
+    //            formatDoc.PrintSetup.UseDatabase = false;
 
-                // Print the label 
-                Messages printMessages = null;
-                formatDoc.Print("", 1000, out printMessages);
-                foreach (Message message in printMessages)
-                {
-                    messages.Add(message);
-                }
+    //            // Print the label 
+    //            Messages printMessages = null;
+    //            formatDoc.Print("", 1000, out printMessages);
+    //            foreach (Message message in printMessages)
+    //            {
+    //                messages.Add(message);
+    //            }
 
-                // Close the LabelFormatDocument to free up resources 
-                // that were used in the TaskEngine 
-                formatDoc.Close(SaveOptions.DoNotSaveChanges);
+    //            // Close the LabelFormatDocument to free up resources 
+    //            // that were used in the TaskEngine 
+    //            formatDoc.Close(SaveOptions.DoNotSaveChanges);
 
-                // Assign this to the member LabelFormat variable so that 
-                // it can be accessed after the Task finishes 
-                format = formatDoc;
-            }
-            catch
-            {
-                try
-                {
-                    // Try to close the format if it is still open 
-                    formatDoc.Close(SaveOptions.DoNotSaveChanges);
-                }
-                catch (Exception)
-                {
+    //            // Assign this to the member LabelFormat variable so that 
+    //            // it can be accessed after the Task finishes 
+    //            format = formatDoc;
+    //        }
+    //        catch
+    //        {
+    //            try
+    //            {
+    //                // Try to close the format if it is still open 
+    //                formatDoc.Close(SaveOptions.DoNotSaveChanges);
+    //            }
+    //            catch (Exception)
+    //            {
 
-                }
-                throw;
-            }
-            return base.OnRun();
-        }
+    //            }
+    //            throw;
+    //        }
+    //        return base.OnRun();
+    //    }
 
-        // Override this method to verify that this Task's properties 
-        // are correct when it is added to the TaskQueue. Typically, 
-        // you would throw an exception that you would catch during a 
-        // TaskManager.TaskQueue.QueueTask call. 
-        protected override void OnValidate()
-        {
-        }
+    //    // Override this method to verify that this Task's properties 
+    //    // are correct when it is added to the TaskQueue. Typically, 
+    //    // you would throw an exception that you would catch during a 
+    //    // TaskManager.TaskQueue.QueueTask call. 
+    //    protected override void OnValidate()
+    //    {
+    //    }
 
-        // Allow access to the LabelFormat that is used in this Task. 
-        public LabelFormat LabelFormat
-        {
-            get
-            {
-                return format;
-            }
-        }
-    }
+    //    // Allow access to the LabelFormat that is used in this Task. 
+    //    public LabelFormat LabelFormat
+    //    {
+    //        get
+    //        {
+    //            return format;
+    //        }
+    //    }
+    //}
 }

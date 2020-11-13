@@ -39,11 +39,11 @@ namespace DLInventoryPacking.WinApps.Pages
             if (BarcodeListView.Items.Count > 0)
             {
                 var printBarcodeJob = new BarcodePrintJob();
-                printBarcodeJob.PrintBartenderJob(_barcodes);
+                //printBarcodeJob.PrintBartenderJob(_barcodes);
             }
         }
 
-        private async void SubmitButton_Click(object sender, RoutedEventArgs e)
+        private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
             FormGrid.IsEnabled = false;
             var errorMessage = "Harap isi semua kolom berikut: \n";
