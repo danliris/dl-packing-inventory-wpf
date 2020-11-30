@@ -204,7 +204,7 @@ namespace DLInventoryPacking.WinApps.Pages
                 printedListJson = JsonConvert.SerializeObject(printedList);
                 _cache.StringSet(OrderNo.Text, printedListJson);
 
-                zplString += $"^XA^MMT^PW382^LL0635^LS0^CFB,15,7^FO20,250^FDAnyaman^FS^FO150,250^FD{barcode.MaterialName}^FS^FO20,275^FDKonstruksi^FS^FO150,275^FD{barcode.MaterialConstructionName}^FS^FO250,275^FD{barcode.YarnMaterialName}^FS^FO20,300^FDPanjang^FS^FO150,300^FD{barcode.PackingLength}^FS^FO250,300^FD{barcode.UOMSKU}^FS^FO20,325^FDMotif/Warna^FS^FO150,325^FD{barcode.Color}^FS^FO20,550^FD{DateTime.Now}^FS^FT131,169^BQN,2,5^FH\\^FDLA,{barcode.PackingCode}^FS^FT122,182^A0N,16,21^FB125,1,0,C^FH\\^FD{barcode.PackingCode}^FS^PQ1,0,1,Y^XZ";
+                zplString += $"^XA^MMT^PW382^LL0635^LS0^CFB,15,7^FO30,350^FDAnyaman^FS^FO150,350^FD{barcode.MaterialName}^FS^FO30,375^FDKonstruksi^FS^FO150,375^FD{barcode.MaterialConstructionName}^FS^FO250,375^FD{barcode.YarnMaterialName}^FS^FO30,400^FDPanjang^FS^FO150,400^FD{barcode.PackingLength}^FS^FO250,400^FD{barcode.UOMSKU}^FS^FO30,425^FDMotif/Warna^FS^FO150,425^FD{barcode.Color}^FS^FO30,550^FD{DateTime.Now}^FS^FT110,280^BQN,2,7^FH\\^FDLA,{barcode.PackingCode}^FS^FT135,310^A0N,16,21^FB125,1,0,C^FH\\^FD{barcode.PackingCode}^FS^PQ1,0,1,Y^XZ";
             }
             //var zpl2 = "CT~~CD,~CC^~CT~^XA~TA000~JSN^LT0^MNM,0^MTT^PON^PMN^LH0,0^JMA^PR3,3~SD30^JUS^LRN^CI27^PA0,1,1,0^XZ^XA^MMT^PW615^LL328^LS0^FWR^FO415,70^BQ,2,8^FDQA,FD200200002PCS^FS^FO380,80^AD,12,12^FD200200002PCS^FS^FO100,25^BY2^BC,75,Y,N,N^FD200200002^FS^FO306,65^AD,12,12^FDPC25 LOT 1^FS^FO280,65^AD,11,11^FD2 BALE^FS^FO0,25^AD,10,10^FD28/04/2020^FS^PQ1,0,1,Y^XZ";
             ZebraPrinterHelper.Print(zplString);
