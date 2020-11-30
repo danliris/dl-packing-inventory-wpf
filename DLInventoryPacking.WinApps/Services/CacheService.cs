@@ -11,7 +11,7 @@ namespace DLInventoryPacking.WinApps.Services
     {
         private static readonly Lazy<ConnectionMultiplexer> _lazyConnection = new Lazy<ConnectionMultiplexer>(() =>
         {
-            var cacheConnection = "dl-cache.redis.cache.windows.net:6380,password=fspdi3JK1OY3uFXzl1XyB3igmqSKwnSq4IkHs3pKVe0=,ssl=True,abortConnect=False";
+            var cacheConnection = "";
             return ConnectionMultiplexer.Connect(cacheConnection);
         });
 
