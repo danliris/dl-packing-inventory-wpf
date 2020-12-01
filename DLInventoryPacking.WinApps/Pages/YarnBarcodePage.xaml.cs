@@ -167,6 +167,24 @@ namespace DLInventoryPacking.WinApps.Pages
             var barcodes = BarcodeListView.Items.Cast<BarcodeInfo>().ToList();
             foreach (var barcode in barcodes)
             {
+                var printedListJson = _cache.StringGet(barcode.OrderNo);
+                var printedList = new List<string>();
+
+                if (!string.IsNullOrWhiteSpace(printedListJson))
+                {
+                    printedList = JsonConvert.DeserializeObject<List<string>>(printedListJson, new JsonSerializerSettings()
+                    {
+                        MissingMemberHandling = MissingMemberHandling.Ignore
+                    });
+
+                    if (printedList == null)
+                        printedList = new List<string>();
+                }
+
+                printedList.Add(barcode.PackingCode);
+                printedListJson = JsonConvert.SerializeObject(printedList);
+                _cache.StringSet(barcode.OrderNo, printedListJson);
+
                 zplString += $"^XA^MMT^PW382^LL0635^LS0^CFB,15,7^FO30,350^FDAnyaman^FS^FO150,350^FD{barcode.MaterialName}^FS^FO30,375^FDKonstruksi^FS^FO150,375^FD{barcode.MaterialConstructionName}^FS^FO250,375^FD{barcode.YarnMaterialName}^FS^FO30,400^FDPanjang^FS^FO150,400^FD{barcode.PackingLength}^FS^FO250,400^FD{barcode.UOMSKU}^FS^FO30,425^FDMotif/Warna^FS^FO150,425^FD{barcode.Color}^FS^FO30,550^FD{DateTime.Now}^FS^FT110,280^BQN,2,7^FH\\^FDLA,{barcode.PackingCode}^FS^FT135,310^A0N,16,21^FB125,1,0,C^FH\\^FD{barcode.PackingCode}^FS^PQ1,0,1,Y^XZ";
                 //zplString += $"^XA^MMT^PW382^LL0635^LS0^CFB,15,7^FO20,250^FDAnyaman^FS^FO150,250^FD{barcode.MaterialName}^FS^FO20,275^FDKonstruksi^FS^FO150,275^FD{barcode.MaterialConstructionName}^FS^FO250,275^FD{barcode.YarnMaterialName}^FS^FO20,300^FDPanjang^FS^FO150,300^FD{barcode.PackingLength}^FS^FO250,300^FD{barcode.UOMSKU}^FS^FO20,325^FDMotif/Warna^FS^FO150,325^FD{barcode.Color}^FS^FO20,550^FD{DateTime.Now}^FS^FT131,169^BQN,2,5^FH\\^FDLA,{barcode.PackingCode}^FS^FT122,182^A0N,16,21^FB125,1,0,C^FH\\^FD{barcode.PackingCode}^FS^PQ1,0,1,Y^XZ";
             }
@@ -202,7 +220,7 @@ namespace DLInventoryPacking.WinApps.Pages
 
                 printedList.Add(barcode.PackingCode);
                 printedListJson = JsonConvert.SerializeObject(printedList);
-                _cache.StringSet(OrderNo.Text, printedListJson);
+                _cache.StringSet(barcode.OrderNo, printedListJson);
 
                 zplString += $"^XA^MMT^PW382^LL0635^LS0^CFB,15,7^FO30,350^FDAnyaman^FS^FO150,350^FD{barcode.MaterialName}^FS^FO30,375^FDKonstruksi^FS^FO150,375^FD{barcode.MaterialConstructionName}^FS^FO250,375^FD{barcode.YarnMaterialName}^FS^FO30,400^FDPanjang^FS^FO150,400^FD{barcode.PackingLength}^FS^FO250,400^FD{barcode.UOMSKU}^FS^FO30,425^FDMotif/Warna^FS^FO150,425^FD{barcode.Color}^FS^FO30,550^FD{DateTime.Now}^FS^FT110,280^BQN,2,7^FH\\^FDLA,{barcode.PackingCode}^FS^FT135,310^A0N,16,21^FB125,1,0,C^FH\\^FD{barcode.PackingCode}^FS^PQ1,0,1,Y^XZ";
             }
