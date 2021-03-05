@@ -1,22 +1,11 @@
-﻿using DLInventoryPacking.WinApps.Jobs;
-using DLInventoryPacking.WinApps.Services;
+﻿using DLInventoryPacking.WinApps.Services;
 using DLInventoryPacking.WinApps.Services.ResponseModel;
-using DLInventoryPacking.WinApps.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using System.Data.SQLite;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DLInventoryPacking.WinApps.Pages
 {
@@ -26,123 +15,44 @@ namespace DLInventoryPacking.WinApps.Pages
     public partial class GreigeBarcodePage : Page
     {
         private List<BarcodeInfo> _barcodes;
+        private SQLiteConnection _dbConnection;
+        private string _dbPath = Environment.CurrentDirectory + "\\DB";
+        private readonly DbCreator _dbSQLite;
 
         public GreigeBarcodePage()
         {
             InitializeComponent();
             _barcodes = new List<BarcodeInfo>();
             pb.Visibility = Visibility.Hidden;
+            EditButton.IsEnabled = true;
+            TestButton.IsEnabled = false;
+            SaveButton.IsEnabled = false;
+
+            IPTextBox.IsReadOnly = true;
+
+            _dbSQLite = new DbCreator();
+
+            IPTextBox.Text = _dbSQLite.GetIP();
+            IPTextBox.IsReadOnly = true;
         }
 
-        private void PrintButton_Click(object sender, RoutedEventArgs e)
+        private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            if (BarcodeListView.Items.Count > 0)
-            {
-                var printBarcodeJob = new BarcodePrintJob();
-                //printBarcodeJob.PrintBartenderJob(_barcodes);
-            }
+            IPTextBox.IsReadOnly = false;
+            SaveButton.IsEnabled = true;
+            EditButton.IsEnabled = false;
         }
 
-        private void SubmitButton_Click(object sender, RoutedEventArgs e)
+        private void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            FormGrid.IsEnabled = false;
-            var errorMessage = "Harap isi semua kolom berikut: \n";
-            var anyError = false;
-            if (string.IsNullOrWhiteSpace(WovenTypeTextBox.Text) || string.IsNullOrWhiteSpace(WovenTypeTextBox.Text))
-            {
-                anyError = true;
-                errorMessage += "- Komposisi\n";
-            }
 
-            if (string.IsNullOrWhiteSpace(Construction1TextBox.Text) || string.IsNullOrWhiteSpace(Construction2TextBox.Text))
-            {
-                anyError = true;
-                errorMessage += "- Konstruksi\n";
-            }
-
-            if (string.IsNullOrWhiteSpace(WidthTextBox.Text))
-            {
-                anyError = true;
-                errorMessage += "- Lebar\n";
-            }
-
-            if (string.IsNullOrWhiteSpace(YarnType1PrefixTextBox.Text) || string.IsNullOrWhiteSpace(YarnType1SuffixTextBox.Text))
-            {
-                anyError = true;
-                errorMessage += "- Jenis Benang 1\n";
-            }
-
-            if (string.IsNullOrWhiteSpace(YarnType2PrefixTextBox.Text) || string.IsNullOrWhiteSpace(YarnType2SuffixTextBox.Text))
-            {
-                anyError = true;
-                errorMessage += "- Jenis Benang 2\n";
-            }
-
-            if (string.IsNullOrWhiteSpace(GradeTextBox.Text))
-            {
-                anyError = true;
-                errorMessage += "- Grade\n";
-            }
-
-            //decimal.TryParse(QuantityTextBox.Text, out var quantity);
-            var quantity = QuantityDecimalUpDown.Value.GetValueOrDefault();
-            if (QuantityDecimalUpDown.Value.GetValueOrDefault() <= 0)
-            {
-                anyError = true;
-                errorMessage += "- Quantity\n";
-            }
-
-            if (anyError)
-            {
-                MessageBox.Show(errorMessage);
-            }
-            else
-            {
-                pb.Visibility = Visibility.Visible;
-                var viewModel = new ProductViewModel(
-                    string.Empty,
-                    $"{Construction1TextBox.Text} X {Construction2TextBox.Text}",
-                    string.Empty,
-                    GradeTextBox.Text,
-                    string.Empty,
-                    "GREIGE",
-                    WidthTextBox.Text,
-                    WovenTypeTextBox.Text,
-                    $"{YarnType1PrefixTextBox.Text}{YarnType1SuffixTextBox.Text}",
-                    $"{YarnType2PrefixTextBox.Text}{YarnType2SuffixTextBox.Text}",
-                    "MTR",
-                    quantity,
-                    "PCS"
-                    );
-                //var barcode = await PackingInventoryService.PostProduct(viewModel);
-
-                //if (barcode != null && !string.IsNullOrWhiteSpace(barcode.PackingCode))
-                //{
-                //    Construction1TextBox.Text = string.Empty;
-                //    Construction2TextBox.Text = string.Empty;
-                //    WidthTextBox.Text = string.Empty;
-                //    GradeTextBox.Text = string.Empty;
-                //    WovenTypeTextBox.Text = string.Empty;
-                //    YarnType1PrefixTextBox.Text = string.Empty;
-                //    YarnType1SuffixTextBox.Text = string.Empty;
-                //    YarnType2PrefixTextBox.Text = string.Empty;
-                //    YarnType2SuffixTextBox.Text = string.Empty;
-                //    QuantityDecimalUpDown.Value = null;
-
-                //    _barcodes.Add(barcode);
-                //    BarcodeListView.Items.Add(barcode);
-                //}
-                MessageBox.Show("data berhasil disimpan");
-                pb.Visibility = Visibility.Hidden;
-            }
-
-            FormGrid.IsEnabled = true;
         }
 
-        private void QuantityTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            var regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
+            _dbSQLite.SetIP(IPTextBox.Text);
+            EditButton.IsEnabled = true;
+            SaveButton.IsEnabled = false;
         }
     }
 }

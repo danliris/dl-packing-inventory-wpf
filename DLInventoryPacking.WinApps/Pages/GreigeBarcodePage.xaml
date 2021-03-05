@@ -38,71 +38,20 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
-                    <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <Label Content="Barcode Greige" FontSize="20" FontWeight="Bold"/>
+                <Label Content="Ubah IP Printer" FontSize="20" FontWeight="Bold"/>
 
-                <Label Content="Barang" FontSize="18" FontWeight="Bold" Grid.Row="1"/>
+                <Label Content="IP Tersimpan" FontSize="18" Grid.Row="2" HorizontalAlignment="Right"/>
+                <TextBox x:Name="IPTextBox" Width="100" FontSize="18" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
-                <Label Content="Jenis Anyaman" FontSize="18" Grid.Row="2" HorizontalAlignment="Right"/>
-                <TextBox x:Name="WovenTypeTextBox" Width="100" FontSize="18" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Button x:Name="EditButton" Content="Ubah" FontSize="18" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Click="EditButton_Click"/>
+                <Button x:Name="TestButton" Content="Test Koneksi" FontSize="18" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Click="TestButton_Click" Background="Blue"/>
+                <Button x:Name="SaveButton" Content="Simpan" FontSize="18" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Click="SaveButton_Click" Background="Green"/>
 
-                <Label Content="Konstruksi" FontSize="18" Grid.Row="3" HorizontalAlignment="Right"/>
-                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
-                    <TextBox x:Name="Construction1TextBox" Width="50" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <Label Content="X" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <TextBox x:Name="Construction2TextBox" Width="50" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                </StackPanel>
-
-                <Label Content="Lebar" FontSize="18" Grid.Row="4" HorizontalAlignment="Right"/>
-                <TextBox x:Name="WidthTextBox" Width="100" FontSize="18" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-
-                <Label Content="Jenis Benang 1" FontSize="18" Grid.Row="5" HorizontalAlignment="Right"/>
-                <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1">
-                    <TextBox x:Name="YarnType1PrefixTextBox" Width="50" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <TextBox x:Name="YarnType1SuffixTextBox" Margin="10,0,0,0" Width="50" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                </StackPanel>
-
-                <Label Content="Jenis Benang 2" FontSize="18" Grid.Row="6" HorizontalAlignment="Right"/>
-                <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="1">
-                    <TextBox x:Name="YarnType2PrefixTextBox" Width="50" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <TextBox x:Name="YarnType2SuffixTextBox" Margin="10,0,0,0" Width="50" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                </StackPanel>
-
-                <Label Content="Grade" FontSize="18" Grid.Row="7" HorizontalAlignment="Right"/>
-                <TextBox x:Name="GradeTextBox" Width="100" FontSize="18" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-
-                <Label Content="Pcs" FontSize="18" FontWeight="Bold" Grid.Row="8"/>
-                <Label Content="UOM" FontSize="18" Grid.Row="9" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                <Label Content="MTR" FontSize="18" Grid.Row="9" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
-
-                <Label Content="Kuantiti" FontSize="18" Grid.Row="10" HorizontalAlignment="Right"/>
-                <TextBox x:Name="QuantityTextBox" Width="100" FontSize="18" Grid.Row="10" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" PreviewTextInput="QuantityTextBox_PreviewTextInput"/>
-                <xctk:DecimalUpDown x:Name="QuantityDecimalUpDown" FormatString="F4" Increment=".001" Width="100" FontSize="18" Grid.Row="10" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" />
-
-                <Button x:Name="SubmitButton" Content="Submit" FontSize="18" Grid.Row="11" Grid.Column="1" HorizontalAlignment="Left" Height="27" VerticalAlignment="Center" Click="SubmitButton_Click"/>
             </Grid>
 
             <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="5*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-
-                <ListView x:Name="BarcodeListView">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Width="75" Header="Kode" DisplayMemberBinding="{Binding Code}"/>
-                            <GridViewColumn Width="75" Header="ID SKU" DisplayMemberBinding="{Binding SKUId}"/>
-                            <GridViewColumn Width="75" Header="Kuantitas" DisplayMemberBinding="{Binding Quantity}"/>
-                            <GridViewColumn Width="75" Header="Satuan" DisplayMemberBinding="{Binding UOMUnit}"/>
-                            <GridViewColumn Width="75" Header="Tipe Pack" DisplayMemberBinding="{Binding PackingType}"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-
-                <Button x:Name="PrintButton" Content="Print" Grid.Row="1" Width="50" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="PrintButton_Click"/>
 
             </Grid>
         </Grid>

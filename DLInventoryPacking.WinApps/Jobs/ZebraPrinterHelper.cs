@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32.SafeHandles;
+﻿using DLInventoryPacking.WinApps.Services;
+using Microsoft.Win32.SafeHandles;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -39,7 +40,8 @@ namespace DLInventoryPacking.WinApps.Jobs
             Connection thePrinterConn = null;
             try
             {
-                var ipAddress = "192.168.20.100";
+                var db = new DbCreator();
+                var ipAddress = db.GetIP();
                 // Instantiate connection for ZPL TCP port at given address
                 thePrinterConn = ConnectionBuilder.Build($"TCP:{ipAddress}:9100");
 

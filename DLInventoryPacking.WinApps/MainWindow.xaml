@@ -85,8 +85,8 @@
                     
                     <Button HorizontalContentAlignment="Left" Padding="10" Foreground="White" x:Name="DashboardButton" Content="Dashboard" FontSize="18" Click="DashboardButton_Click" Background="Transparent" BorderThickness="0"></Button>
                     <Button HorizontalContentAlignment="Left" Padding="10" Foreground="White" x:Name="YarnBarcodeButton" Grid.Row="1" Content="Dyeing Printing Pack" FontSize="18" Click="YarnBarcodeButton_Click" Background="Transparent" BorderThickness="0"></Button>
-                    <!--<Button HorizontalContentAlignment="Left" Padding="10" Foreground="White" x:Name="FabricBarcodeButton" Grid.Row="2" Content="Barcode Fabric" FontSize="18" Click="FabricBarcodeButton_Click" Background="Transparent" BorderThickness="0"></Button>
-                    <Button HorizontalContentAlignment="Left" Padding="10" Foreground="White" x:Name="GreigeBarcodeButton" Grid.Row="3" Content="Barcode Greige" FontSize="18" Click="GreigeBarcodeButton_Click" Background="Transparent" BorderThickness="0"></Button>-->
+                    <Button HorizontalContentAlignment="Left" Padding="10" Foreground="White" x:Name="FabricBarcodeButton" Grid.Row="2" Content="Re-Print Barcode" FontSize="18" Click="FabricBarcodeButton_Click" Background="Transparent" BorderThickness="0"></Button>
+                    <Button HorizontalContentAlignment="Left" Padding="10" Foreground="White" x:Name="GreigeBarcodeButton" Grid.Row="3" Content="Setting IP Printer" FontSize="18" Click="GreigeBarcodeButton_Click" Background="Transparent" BorderThickness="0"></Button>
                 </Grid>
 
                 <DockPanel Grid.Column="1">
