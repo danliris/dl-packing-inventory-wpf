@@ -12,20 +12,20 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20*"></RowDefinition>
-            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid x:Name="FormGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
 
             <Grid>
-                <Grid.ColumnDefinitions>
+                <!--<Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+                </Grid.ColumnDefinitions>-->
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2*"/>
                     <RowDefinition/>
@@ -35,68 +35,63 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
 
-                <Label Content="Barcode Fabric" FontSize="20" FontWeight="Bold"/>
+                <Label Content="Re-print Barcode" FontSize="18" FontWeight="Bold"/>
 
-                <Label Content="Barang" FontSize="18" FontWeight="Bold" Grid.Row="1"/>
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Nomor SPP" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBox x:Name="OrderNo" Width="120" FontSize="18" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Grid>
 
-                <Label Content="Komposisi" FontSize="18" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                <TextBox x:Name="CompositionTextBox" Width="100" FontSize="18" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Grid Grid.Column="1">
 
-                <Label Content="Konstruksi" FontSize="18" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
-                    <TextBox x:Name="Construction1TextBox" Width="50" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <Label Content="X" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <TextBox x:Name="Construction2TextBox"  Width="50" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <!--<CheckBox Name="IsReprint">Re-print</CheckBox>-->
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="SearchSPPButton" Content="Cari" FontSize="18" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Click="SubmitButton_Click"/>
+
+                </Grid>
+                <!--<Label Content="Barang" FontSize="18" FontWeight="Bold" Grid.Row="1"/>
+
+                <Label Content="Jenis Benang" FontSize="18" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+                    <TextBox x:Name="YarnTypePrefixTextBox" Width="50" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBox x:Name="YarnTypeSuffixTextbox" Margin="10,0,0,0" Width="50" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 </StackPanel>
 
-                <Label Content="Lebar" FontSize="18" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                <TextBox x:Name="WidthTextBox" Width="100" FontSize="18" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label Content="No Lot" FontSize="18" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <TextBox x:Name="LotNoTextBox" Width="100" FontSize="18" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
-                <Label Content="Design" FontSize="18" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                <TextBox x:Name="DesignTextBox" Width="100" FontSize="18" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label Content="Palet" FontSize="18" FontWeight="Bold" Grid.Row="4"/>
 
-                <Label Content="Grade" FontSize="18" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                <StackPanel Width="125" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <ComboBox x:Name="GradeComboBox" FontSize="18" IsEditable="True">
-                        <ComboBoxItem Content="A"/>
-                        <ComboBoxItem Content="B"/>
-                        <ComboBoxItem Content="C"/>
-                        <ComboBoxItem Content="BS FINISH"/>
-                        <ComboBoxItem Content="BS MATERIAL"/>
-                        <ComboBoxItem Content="AVAL"/>
-                    </ComboBox>
-                </StackPanel>
+                <Label Content="Satuan" FontSize="18" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <Label Content="Bale" FontSize="18" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
-                <Label Content="Pack" FontSize="18" FontWeight="Bold" Grid.Row="7"/>
-                <Label Content="UOM" FontSize="18" Grid.Row="8" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                <Label Content="MTR" FontSize="18" Grid.Row="8" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label Content="Quantity" FontSize="18" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                -->
+                <!--<TextBox x:Name="QuantityTextBox" Width="100" FontSize="18" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" PreviewTextInput="Quantity_PreviewTextInput"/>-->
+                <!--
+                <xctk:DecimalUpDown x:Name="QuantityDecimalUpDown" FormatString="F4" Increment=".001" Width="100" FontSize="18" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
-                <Label Content="Kuantiti" FontSize="18" Grid.Row="9" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                <!--<TextBox x:Name="QuantityTextBox" Width="100" FontSize="18" Grid.Row="9" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" PreviewTextInput="Quantity_PreviewTextInput"/>-->
-                <xctk:DecimalUpDown x:Name="QuantityDecimalUpDown" FormatString="F4" Increment=".001" Width="100" FontSize="18" Grid.Row="9" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" />
-
-                <Label Content="Jenis Pack" FontSize="18" Grid.Row="10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                <!--<TextBox Width="100" FontSize="18" Grid.Row="10" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>-->
-                <StackPanel Width="100" Grid.Row="10" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <ComboBox x:Name="PackTypeComboBox" FontSize="18" IsEditable="True">
-                        <ComboBoxItem Content="ROLL"/>
-                        <ComboBoxItem Content="PCS"/>
-                        <ComboBoxItem Content="POT"/>
-                        <ComboBoxItem Content="SETS"/>
-                        <ComboBoxItem Content="SLP"/>
-                        <ComboBoxItem Content="BDL"/>
-                        <ComboBoxItem Content="KRG"/>
-                        <ComboBoxItem Content="LBR"/>
-                    </ComboBox>
-                </StackPanel>
-
-                <Button x:Name="SubmitButton" Content="Submit" FontSize="18" Grid.Row="11" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,3.8,0,0" Click="SubmitButton_Click"/>
+                <Button x:Name="SubmitButton" Content="Submit" FontSize="18" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Click="SubmitButton_Click"/>-->
             </Grid>
 
             <Grid Grid.Column="1">
@@ -105,21 +100,31 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
 
-
-                <ListView x:Name="BarcodeListView" Background="Transparent">
+                <ListView x:Name="BarcodeListView" SelectionMode="Multiple" SelectionChanged="BarcodeListView_SelectionChanged">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Width="75" Header="Kode" DisplayMemberBinding="{Binding Code}"/>
-                            <GridViewColumn Width="75" Header="ID SKU" DisplayMemberBinding="{Binding SKUId}"/>
-                            <GridViewColumn Width="75" Header="Kuantitas" DisplayMemberBinding="{Binding Quantity}"/>
-                            <GridViewColumn Width="75" Header="Satuan" DisplayMemberBinding="{Binding UOMUnit}"/>
-                            <GridViewColumn Width="75" Header="Tipe Pack" DisplayMemberBinding="{Binding PackingType}"/>
+                            <!--<GridViewColumn Header=" ">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding IsSelected}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>-->
+                            <GridViewColumn Width="75" Header="Kode Packing" DisplayMemberBinding="{Binding PackingCode}"/>
+                            <GridViewColumn Width="75" Header="Nomor SPP" DisplayMemberBinding="{Binding OrderNo}"/>
+                            <GridViewColumn Width="100" Header="Ukuran Packing" DisplayMemberBinding="{Binding PackingLength}"/>
+                            <GridViewColumn Width="75" Header="Satuan" DisplayMemberBinding="{Binding UOMSKU}"/>
+                            <GridViewColumn Width="75" Header="Jenis Pack" DisplayMemberBinding="{Binding PackingType}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
 
-                <Button x:Name="PrintButton" Content="Print" Grid.Row="1" Width="50" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="PrintButton_Click"/>
-
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <Button x:Name="PrintButton" Content="Print" Width="50" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="PrintButton_Click"/>
+                    <Button x:Name="PrintSelectedButton" Content="Print Selected" Width="100" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="PrintSelectedButton_Click"/>
+                    <Button x:Name="DeleteButton" Content="Remove From List" Width="100" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="DeleteButton_Click"/>
+                    <Button x:Name="ClearButton" Content="Clear List" Width="100" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="ClearButton_Click"/>
+                </StackPanel>
             </Grid>
         </Grid>
 

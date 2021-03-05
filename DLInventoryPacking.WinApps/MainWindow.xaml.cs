@@ -82,10 +82,10 @@ namespace DLInventoryPacking.WinApps
             {
                 MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
             }
-            else if (Greigepage.BarcodeListView.Items.Count != 0)
-            {
-                MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
-            }
+            //else if (Greigepage.BarcodeListView.Items.Count != 0)
+            //{
+            //    MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
+            //}
             else
             {
                 _NavigationFrame.Navigate(new YarnBarcodePage());
@@ -103,11 +103,11 @@ namespace DLInventoryPacking.WinApps
 
                 MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
             }
-            else if (Greigepage.BarcodeListView.Items.Count > 0)
-            {
+            //else if (Greigepage.BarcodeListView.Items.Count > 0)
+            //{
 
-                MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
-            }
+            //    MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
+            //}
             else
             {
                 _NavigationFrame.Navigate(new FabricBarcodePage());
@@ -123,10 +123,10 @@ namespace DLInventoryPacking.WinApps
             {
                 MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
             }
-            else if (Greigepage.BarcodeListView.Items.Count > 0)
-            {
-                MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
-            }
+            //else if (Greigepage.BarcodeListView.Items.Count > 0)
+            //{
+            //    MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
+            //}
             else
             {
                 _NavigationFrame.Navigate(new GreigeBarcodePage());
