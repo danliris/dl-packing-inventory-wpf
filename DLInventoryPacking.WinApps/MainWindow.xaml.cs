@@ -78,19 +78,19 @@ namespace DLInventoryPacking.WinApps
 
         private void YarnBarcodeButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Fabricpage.BarcodeListView.Items.Count != 0)
-            {
-                MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
-            }
+            //if (Fabricpage.BarcodeListView.Items.Count != 0)
+            //{
+            //    MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
+            //}
             //else if (Greigepage.BarcodeListView.Items.Count != 0)
             //{
             //    MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
             //}
-            else
-            {
+            //else
+            //{
                 _NavigationFrame.Navigate(new YarnBarcodePage());
 
-            }
+            //}
         }
 
         private void FabricBarcodeButton_Click(object sender, RoutedEventArgs e)
@@ -119,19 +119,19 @@ namespace DLInventoryPacking.WinApps
         private void GreigeBarcodeButton_Click(object sender, RoutedEventArgs e)
         {
 
-            if (Fabricpage.BarcodeListView.Items.Count > 0)
-            {
-                MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
-            }
-            //else if (Greigepage.BarcodeListView.Items.Count > 0)
+            //if (Fabricpage.BarcodeListView.Items.Count > 0)
             //{
             //    MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
             //}
-            else
-            {
+            ////else if (Greigepage.BarcodeListView.Items.Count > 0)
+            ////{
+            ////    MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
+            ////}
+            //else
+            //{
                 _NavigationFrame.Navigate(new GreigeBarcodePage());
 
-            }
+            //}
             // _NavigationFrame.Navigate(new GreigeBarcodePage());
         }
     }

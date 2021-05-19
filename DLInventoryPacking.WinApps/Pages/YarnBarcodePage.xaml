@@ -54,6 +54,15 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
+                    <Label Content="Ukuran per Pack" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBox x:Name="PackingSizeFilter" Width="120" FontSize="18" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Grid>
+
+                <Grid Grid.Row="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
                     <Label Content="" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     <Grid Grid.Column="1">
 
@@ -61,7 +70,7 @@
                     </Grid>
                 </Grid>
 
-                <Grid Grid.Row="5">
+                <Grid Grid.Row="6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
