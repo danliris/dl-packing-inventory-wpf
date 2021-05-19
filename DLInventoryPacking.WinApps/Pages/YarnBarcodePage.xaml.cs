@@ -129,8 +129,19 @@ namespace DLInventoryPacking.WinApps.Pages
                             UOMSKU = barcode.uomUnit
                         };
                         _barcodes.Add(barcodeInfo);
-                        BarcodeListView.Items.Add(barcodeInfo);
+                        
                     }
+
+                    if (BarcodeListView.Items.Count > 0 && !string.IsNullOrWhiteSpace(PackingSizeFilter.Text))
+                    {
+                        if (double.TryParse(PackingSizeFilter.Text, out var packingSize))
+                        {
+                            _barcodes = _barcodes.Where(element => element.PackingLength == packingSize.ToString()).ToList();
+                        }
+                    }
+
+                    foreach (var _barcode in _barcodes)
+                        BarcodeListView.Items.Add(_barcode);
                 }
 
 

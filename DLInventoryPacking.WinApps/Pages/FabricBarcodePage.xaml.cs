@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -29,14 +30,15 @@ namespace DLInventoryPacking.WinApps.Pages
     {
         private List<BarcodeInfo> _barcodes;
         private readonly IDatabase _cache;
+        public ObservableCollection<BarcodeInfo> BarcodeList { get; set; }
 
         public FabricBarcodePage()
         {
             InitializeComponent();
             _barcodes = new List<BarcodeInfo>();
             pb.Visibility = Visibility.Hidden;
-            DeleteButton.IsEnabled = false;
             _cache = CacheService.Connection.GetDatabase();
+            BarcodeGrid.ItemsSource = BarcodeList;
             //PrintButton.IsEnabled = false;
         }
 
@@ -96,11 +98,13 @@ namespace DLInventoryPacking.WinApps.Pages
                 //    );
                 var barcodeList = await PackingInventoryService.GetBarcodeInfoByOrderNo(OrderNo.Text, false);
 
+                
+
 
 
 
                 _barcodes = new List<BarcodeInfo>();
-                BarcodeListView.Items.Clear();
+                BarcodeList = new ObservableCollection<BarcodeInfo>();
                 foreach (var barcode in barcodeList)
                 {
                     var printedListJson = _cache.StringGet(barcode.productionOrder.no);
@@ -134,8 +138,19 @@ namespace DLInventoryPacking.WinApps.Pages
                             UOMSKU = barcode.uomUnit
                         };
                         _barcodes.Add(barcodeInfo);
-                        BarcodeListView.Items.Add(barcodeInfo);
+                        //BarcodeList.Add(barcodeInfo);
                     }
+
+                    if (BarcodeList.Count > 0 && !string.IsNullOrWhiteSpace(PackingSizeFilter.Text))
+                    {
+                        if (double.TryParse(PackingSizeFilter.Text, out var packingSize))
+                        {
+                            _barcodes = _barcodes.Where(element => element.PackingLength == packingSize.ToString()).ToList();
+                        }
+                    }
+
+                    foreach (var _barcode in _barcodes)
+                        BarcodeList.Add(_barcode);
                 }
 
 
@@ -152,6 +167,7 @@ namespace DLInventoryPacking.WinApps.Pages
                 //    BarcodeListView.Items.Add(barcode);
                 //}
 
+                BarcodeGrid.ItemsSource = BarcodeList;
                 pb.Visibility = Visibility.Hidden;
             }
             FormGrid.IsEnabled = true;
@@ -162,14 +178,8 @@ namespace DLInventoryPacking.WinApps.Pages
 
         private void PrintButton_Click(object sender, RoutedEventArgs e)
         {
-            //if (BarcodeListView.Items.Count > 0)
-            //{
-            //    var printBarcodeJob = new BarcodePrintJob();
-            //    printBarcodeJob.PrintBartenderJob(_barcodes);
-            //}
-
             var zplString = "";
-            var barcodes = BarcodeListView.Items.Cast<BarcodeInfo>().ToList();
+            var barcodes = BarcodeGrid.Items.Cast<BarcodeInfo>().ToList();
             foreach (var barcode in barcodes)
             {
                 var printedListJson = _cache.StringGet(barcode.OrderNo);
@@ -204,9 +214,14 @@ namespace DLInventoryPacking.WinApps.Pages
 
         private void PrintSelectedButton_Click(object sender, RoutedEventArgs e)
         {
-            var zplString = "";
-            var barcodes = BarcodeListView.SelectedItems.Cast<BarcodeInfo>().ToArray();
+            //if (BarcodeListView.Items.Count > 0)
+            //{
+            //    var printBarcodeJob = new BarcodePrintJob();
+            //    printBarcodeJob.PrintBartenderJob(_barcodes);
+            //}
 
+            var zplString = "";
+            var barcodes = BarcodeList.Cast<BarcodeInfo>().ToList();
             foreach (var barcode in barcodes)
             {
                 var printedListJson = _cache.StringGet(barcode.OrderNo);
@@ -227,7 +242,8 @@ namespace DLInventoryPacking.WinApps.Pages
                 printedListJson = JsonConvert.SerializeObject(printedList);
                 _cache.StringSet(barcode.OrderNo, printedListJson);
 
-                zplString += $"^XA^MMT^PW382^LL0635^LS0^CFB,15,7^FO30,350^FDAnyaman^FS^FO150,350^FD{barcode.MaterialName}^FS^FO30,375^FDKonstruksi^FS^FO150,375^FD{barcode.MaterialConstructionName}^FS^FO250,375^FD{barcode.YarnMaterialName}^FS^FO30,400^FDPanjang^FS^FO150,400^FD{barcode.PackingLength}^FS^FO250,400^FD{barcode.UOMSKU}^FS^FO30,425^FDMotif/Warna^FS^FO150,425^FD{barcode.Color}^FS^FO30,550^FD{DateTime.Now}^FS^FT110,280^BQN,2,7^FH\\^FDLA,{barcode.PackingCode}^FS^FT135,310^A0N,16,21^FB125,1,0,C^FH\\^FD{barcode.PackingCode}^FS^PQ1,0,1,Y^XZ";
+                zplString += $"^XA^MMT^PW382^LL0635^LS0^CFB,18,10^FO30,350^FDAnyaman^FS^FO150,350^FD{barcode.MaterialName}^FS^FO30,375^FDKonstruksi^FS^FO150,375^FD{barcode.MaterialConstructionName}^FS^FO250,375^FD{barcode.YarnMaterialName}^FS^FO30,400^FDPanjang^FS^FO150,400^FD{barcode.PackingLength}^FS^FO250,400^FD{barcode.UOMSKU}^FS^FO30,425^FDMotif/Warna^FS^FO150,425^FD{barcode.Color}^FS^FO30,550^FD{DateTime.Now}^FS^FT110,280^BQN,2,7^FH\\^FDLA,{barcode.PackingCode}^FS^FT135,310^A0N,16,21^FB125,1,0,C^FH\\^FD{barcode.PackingCode}^FS^PQ1,0,1,Y^XZ";
+                //zplString += $"^XA^MMT^PW382^LL0635^LS0^CFB,15,7^FO20,250^FDAnyaman^FS^FO150,250^FD{barcode.MaterialName}^FS^FO20,275^FDKonstruksi^FS^FO150,275^FD{barcode.MaterialConstructionName}^FS^FO250,275^FD{barcode.YarnMaterialName}^FS^FO20,300^FDPanjang^FS^FO150,300^FD{barcode.PackingLength}^FS^FO250,300^FD{barcode.UOMSKU}^FS^FO20,325^FDMotif/Warna^FS^FO150,325^FD{barcode.Color}^FS^FO20,550^FD{DateTime.Now}^FS^FT131,169^BQN,2,5^FH\\^FDLA,{barcode.PackingCode}^FS^FT122,182^A0N,16,21^FB125,1,0,C^FH\\^FD{barcode.PackingCode}^FS^PQ1,0,1,Y^XZ";
             }
             //var zpl2 = "CT~~CD,~CC^~CT~^XA~TA000~JSN^LT0^MNM,0^MTT^PON^PMN^LH0,0^JMA^PR3,3~SD30^JUS^LRN^CI27^PA0,1,1,0^XZ^XA^MMT^PW615^LL328^LS0^FWR^FO415,70^BQ,2,8^FDQA,FD200200002PCS^FS^FO380,80^AD,12,12^FD200200002PCS^FS^FO100,25^BY2^BC,75,Y,N,N^FD200200002^FS^FO306,65^AD,12,12^FDPC25 LOT 1^FS^FO280,65^AD,11,11^FD2 BALE^FS^FO0,25^AD,10,10^FD28/04/2020^FS^PQ1,0,1,Y^XZ";
             ZebraPrinterHelper.Print(zplString);
@@ -240,23 +256,43 @@ namespace DLInventoryPacking.WinApps.Pages
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            var selectedItems = BarcodeListView.SelectedItems.Cast<BarcodeInfo>().ToArray();
+            var selectedItems = BarcodeList.ToArray();
             foreach (var item in selectedItems)
             {
-                BarcodeListView.Items.Remove(item);
+                BarcodeList.Remove(item);
             }
         }
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            BarcodeListView.Items.Clear();
+            BarcodeList.Clear();
         }
 
         private void BarcodeListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (BarcodeListView.SelectedItems.Count > 0)
+            if (BarcodeList.Count > 0)
             {
                 DeleteButton.IsEnabled = true;
+            }
+        }
+
+        //private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        //{
+        //    e.Handled = new Regex("[^0-9]+").IsMatch(e.Text);
+        //}
+
+        private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            try
+            {
+                Convert.ToDouble(e.Text);
+            }
+            catch
+            {
+                // Show some kind of error message if you want
+
+                // Set handled to true
+                e.Handled = true;
             }
         }
     }

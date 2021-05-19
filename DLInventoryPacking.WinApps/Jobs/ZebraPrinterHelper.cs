@@ -40,7 +40,7 @@ namespace DLInventoryPacking.WinApps.Jobs
             Connection thePrinterConn = null;
             try
             {
-                var db = new DbCreator();
+                var db = new IPConfigurationManager();
                 var ipAddress = db.GetIP();
                 // Instantiate connection for ZPL TCP port at given address
                 thePrinterConn = ConnectionBuilder.Build($"TCP:{ipAddress}:9100");

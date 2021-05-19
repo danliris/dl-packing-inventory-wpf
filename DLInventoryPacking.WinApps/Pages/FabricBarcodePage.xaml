@@ -2,9 +2,8 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:DLInventoryPacking.WinApps.Pages"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:component="clr-namespace:DLInventoryPacking.WinApps.Components"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="FabricBarcodePage">
@@ -54,14 +53,23 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <Grid Grid.Column="1">
-
-                        <!--<CheckBox Name="IsReprint">Re-print</CheckBox>-->
-                    </Grid>
+                    <Label Content="Ukuran per Pack" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBox x:Name="PackingSizeFilter" Width="120" FontSize="18" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 </Grid>
 
                 <Grid Grid.Row="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Grid Grid.Column="1">
+
+                        <CheckBox Name="IsReprint" Content="Re-print"></CheckBox>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -100,24 +108,36 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
 
-                <ListView x:Name="BarcodeListView" SelectionMode="Multiple" SelectionChanged="BarcodeListView_SelectionChanged">
+                <!--<ListView x:Name="BarcodeListView" SelectionMode="Multiple" SelectionChanged="BarcodeListView_SelectionChanged">
                     <ListView.View>
                         <GridView>
-                            <!--<GridViewColumn Header=" ">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <CheckBox IsChecked="{Binding IsSelected}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>-->
                             <GridViewColumn Width="75" Header="Kode Packing" DisplayMemberBinding="{Binding PackingCode}"/>
                             <GridViewColumn Width="75" Header="Nomor SPP" DisplayMemberBinding="{Binding OrderNo}"/>
-                            <GridViewColumn Width="100" Header="Ukuran Packing" DisplayMemberBinding="{Binding PackingLength}"/>
+                            <GridViewColumn  Width="100" Header="Ukuran Packing" DisplayMemberBinding="{Binding PackingLength}"/>
                             <GridViewColumn Width="75" Header="Satuan" DisplayMemberBinding="{Binding UOMSKU}"/>
                             <GridViewColumn Width="75" Header="Jenis Pack" DisplayMemberBinding="{Binding PackingType}"/>
                         </GridView>
                     </ListView.View>
-                </ListView>
+                </ListView>-->
+
+                <DataGrid x:Name="BarcodeGrid" ItemsSource="{Binding}" AutoGenerateColumns="False">
+                    <DataGrid.Columns >
+                        <DataGridTextColumn IsReadOnly="True" Header="Kode Packing" Binding="{Binding PackingCode}"></DataGridTextColumn>
+                        <DataGridTextColumn IsReadOnly="True" Header="Nomor SPP" Binding="{Binding OrderNo}"></DataGridTextColumn>
+                        <!--<DataGridTextColumn Header="Ukuran Packing" Binding="{Binding PackingLength}"></DataGridTextColumn>-->
+                        <!--<DataGridTextColumn Header="Ukuran Packing" Binding="{Binding myInt, StringFormat=\{0:N0\}}"/>-->
+                        <!--<DataGridTemplateColumn Header="Ukuran Packing">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding PackingLength}" PreviewTextInput="OnPreviewTextInput" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>-->
+                        <component:DataGridNumericColumn Header="Ukuran Packing" Binding="{Binding Path=PackingLength}"/>
+                        <DataGridTextColumn IsReadOnly="True" Header="Satuan" Binding="{Binding UOMSKU}"></DataGridTextColumn>
+                        <DataGridTextColumn IsReadOnly="True" Header="Jenis Pack" Binding="{Binding PackingType}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="1">
                     <Button x:Name="PrintButton" Content="Print" Width="50" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="PrintButton_Click"/>

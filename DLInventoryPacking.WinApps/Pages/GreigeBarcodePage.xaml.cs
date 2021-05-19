@@ -17,7 +17,7 @@ namespace DLInventoryPacking.WinApps.Pages
         private List<BarcodeInfo> _barcodes;
         private SQLiteConnection _dbConnection;
         private string _dbPath = Environment.CurrentDirectory + "\\DB";
-        private readonly DbCreator _dbSQLite;
+        private readonly IPConfigurationManager _dbSQLite;
 
         public GreigeBarcodePage()
         {
@@ -30,7 +30,7 @@ namespace DLInventoryPacking.WinApps.Pages
 
             IPTextBox.IsReadOnly = true;
 
-            _dbSQLite = new DbCreator();
+            _dbSQLite = new IPConfigurationManager();
 
             IPTextBox.Text = _dbSQLite.GetIP();
             IPTextBox.IsReadOnly = true;
@@ -50,7 +50,7 @@ namespace DLInventoryPacking.WinApps.Pages
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            _dbSQLite.SetIP(IPTextBox.Text);
+            _dbSQLite.UpdateIP(IPTextBox.Text);
             EditButton.IsEnabled = true;
             SaveButton.IsEnabled = false;
         }
