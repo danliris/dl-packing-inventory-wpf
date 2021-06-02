@@ -42,12 +42,12 @@ namespace DLInventoryPacking.WinApps.Services
         //    return barcodeResult.BarcodeInfo;
         //}
 
-        public static async Task<List<NewBarcodeInfo>> GetBarcodeInfoByOrderNo(string orderNo, bool isReprint)
+        public static async Task<List<NewBarcodeInfo>> GetBarcodeInfoByOrderNo(string orderNo, bool isReprint, bool isStockOpname)
         {
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", UserCredentials.Token);
 
-            var response = await httpClient.GetAsync(APIEndpoint.PackingInventoryEndpoint + $"dyeing-printing-product/packing?page=1&size=2000&keyword={orderNo}&isReprint={isReprint}");
+            var response = await httpClient.GetAsync(APIEndpoint.PackingInventoryEndpoint + $"dyeing-printing-product/packing?page=1&size=2000&keyword={orderNo}&isReprint={isReprint}&isStockOpname={isStockOpname}");
 
             // test purpose
             //var response = await httpClient.GetAsync(APIEndpoint.PackingInventoryEndpoint + $"dyeing-printing-product/packing?page=1&size=2000&keyword={orderNo}");

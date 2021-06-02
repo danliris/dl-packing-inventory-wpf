@@ -134,5 +134,10 @@ namespace DLInventoryPacking.WinApps
             //}
             // _NavigationFrame.Navigate(new GreigeBarcodePage());
         }
+
+        private void _NavigationFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+
+        }
     }
 }

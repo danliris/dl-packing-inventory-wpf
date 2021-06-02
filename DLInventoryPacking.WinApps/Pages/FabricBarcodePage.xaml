@@ -37,7 +37,7 @@
                     <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
 
-                <Label Content="Re-print Barcode" FontSize="18" FontWeight="Bold"/>
+                <Label Content="Barcode Gudang Jadi" FontSize="18" FontWeight="Bold"/>
 
                 <Grid Grid.Row="3">
                     <Grid.ColumnDefinitions>
