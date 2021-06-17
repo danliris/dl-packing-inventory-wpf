@@ -143,16 +143,9 @@ namespace DLInventoryPacking.WinApps.Pages
                             //BarcodeList.Add(barcodeInfo);
                         }
 
-                        if (BarcodeList.Count > 0 && !string.IsNullOrWhiteSpace(PackingSizeFilter.Text))
-                        {
-                            if (double.TryParse(PackingSizeFilter.Text, out var packingSize))
-                            {
-                                _barcodes = _barcodes.Where(element => element.PackingLength == packingSize.ToString()).ToList();
-                            }
-                        }
 
-                        foreach (var _barcode in _barcodes)
-                            BarcodeList.Add(_barcode);
+
+
                     }
 
 
@@ -168,6 +161,17 @@ namespace DLInventoryPacking.WinApps.Pages
                 //    _barcodes.Add(barcode);
                 //    BarcodeListView.Items.Add(barcode);
                 //}
+
+                if (BarcodeList.Count > 0 && !string.IsNullOrWhiteSpace(PackingSizeFilter.Text))
+                {
+                    if (double.TryParse(PackingSizeFilter.Text, out var packingSize))
+                    {
+                        _barcodes = _barcodes.Where(element => element.PackingLength == packingSize.ToString()).ToList();
+                    }
+                }
+
+                foreach (var _barcode in _barcodes)
+                    BarcodeList.Add(_barcode);
 
                 BarcodeGrid.ItemsSource = BarcodeList;
                 pb.Visibility = Visibility.Hidden;
