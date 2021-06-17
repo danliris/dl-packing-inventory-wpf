@@ -86,7 +86,7 @@ namespace DLInventoryPacking.WinApps.Pages
                 //    QuantityDecimalUpDown.Value.GetValueOrDefault(),
                 //    "PALET"
                 //    );
-                var barcodeList = await PackingInventoryService.GetBarcodeInfoByOrderNo(OrderNo.Text, IsReprint.IsChecked.GetValueOrDefault());
+                var barcodeList = await PackingInventoryService.GetBarcodeInfoByOrderNo(OrderNo.Text, IsReprint.IsChecked.GetValueOrDefault(), false);
 
 
 
