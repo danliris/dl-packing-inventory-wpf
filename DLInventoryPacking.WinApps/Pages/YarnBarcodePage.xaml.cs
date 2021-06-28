@@ -92,7 +92,6 @@ namespace DLInventoryPacking.WinApps.Pages
 
 
                 _barcodes = new List<BarcodeInfo>();
-                BarcodeListView.Items.Clear();
                 foreach (var barcode in barcodeList)
                 {
                     var printedListJson = _cache.StringGet(barcode.productionOrder.no);
@@ -132,16 +131,7 @@ namespace DLInventoryPacking.WinApps.Pages
                         
                     }
 
-                    if (BarcodeListView.Items.Count > 0 && !string.IsNullOrWhiteSpace(PackingSizeFilter.Text))
-                    {
-                        if (double.TryParse(PackingSizeFilter.Text, out var packingSize))
-                        {
-                            _barcodes = _barcodes.Where(element => element.PackingLength == packingSize.ToString()).ToList();
-                        }
-                    }
-
-                    foreach (var _barcode in _barcodes)
-                        BarcodeListView.Items.Add(_barcode);
+                    
                 }
 
 
@@ -157,6 +147,17 @@ namespace DLInventoryPacking.WinApps.Pages
                 //    _barcodes.Add(barcode);
                 //    BarcodeListView.Items.Add(barcode);
                 //}
+                if (BarcodeListView.Items.Count > 0 && !string.IsNullOrWhiteSpace(PackingSizeFilter.Text))
+                {
+                    if (double.TryParse(PackingSizeFilter.Text, out var packingSize))
+                    {
+                        _barcodes = _barcodes.Where(element => element.PackingLength == packingSize.ToString()).ToList();
+                    }
+                }
+
+                BarcodeListView.Items.Clear();
+                foreach (var _barcode in _barcodes)
+                    BarcodeListView.Items.Add(_barcode);
 
                 pb.Visibility = Visibility.Hidden;
             }
