@@ -98,15 +98,10 @@ namespace DLInventoryPacking.WinApps.Pages
                 //    );
                 var barcodeList = await PackingInventoryService.GetBarcodeInfoByOrderNo(OrderNo.Text, false, true);
 
-
-
-
-
-
                 _barcodes = new List<BarcodeInfo>();
-                BarcodeList = new ObservableCollection<BarcodeInfo>();
+                
 
-                if (barcodeList != null)
+                if (barcodeList != null && !IsReprint.IsChecked.GetValueOrDefault())
                     foreach (var barcode in barcodeList)
                     {
                         var printedListJson = _cache.StringGet(barcode.productionOrder.no);
@@ -147,7 +142,49 @@ namespace DLInventoryPacking.WinApps.Pages
 
 
                     }
+                else if (barcodeList != null && IsReprint.IsChecked.GetValueOrDefault())
+                {
+                    foreach (var barcode in barcodeList)
+                    {
+                        var printedListJson = _cache.StringGet(barcode.productionOrder.no);
+                        var printedList = new List<string>();
 
+                        if (!string.IsNullOrWhiteSpace(printedListJson))
+                        {
+                            printedList = JsonConvert.DeserializeObject<List<string>>(printedListJson, new JsonSerializerSettings()
+                            {
+                                MissingMemberHandling = MissingMemberHandling.Ignore
+                            });
+                        }
+
+                        if (printedList != null && printedList.Count > 0)
+                        {
+                            barcode.productPackingCodes = barcode.productPackingCodes.Where(element => printedList.Contains(element)).ToList();
+                        }
+
+                        foreach (var packingCode in barcode.productPackingCodes)
+                        {
+                            var barcodeInfo = new BarcodeInfo()
+                            {
+                                Color = barcode.color,
+                                MaterialConstructionName = barcode.materialConstruction.name,
+                                MaterialName = barcode.material.name,
+                                OrderNo = barcode.productionOrder.no,
+                                PackingCode = packingCode,
+                                PackingLength = barcode.productPackingLength.ToString(),
+                                PackingType = barcode.productPackingType,
+                                YarnMaterialName = barcode.yarnMaterial.name,
+                                UOMSKU = barcode.uomUnit
+                            };
+                            _barcodes.Add(barcodeInfo);
+                            //BarcodeList.Add(barcodeInfo);
+                        }
+
+
+
+
+                    }
+                }
 
                 ////if (barcode != null && !string.IsNullOrWhiteSpace(barcode.PackingCode))
                 //if (barcode != null /*&& !string.IsNullOrWhiteSpace(barcode.PackingCode)*/)
@@ -162,7 +199,7 @@ namespace DLInventoryPacking.WinApps.Pages
                 //    BarcodeListView.Items.Add(barcode);
                 //}
 
-                if (BarcodeList.Count > 0 && !string.IsNullOrWhiteSpace(PackingSizeFilter.Text))
+                if (!string.IsNullOrWhiteSpace(PackingSizeFilter.Text))
                 {
                     if (double.TryParse(PackingSizeFilter.Text, out var packingSize))
                     {
@@ -170,6 +207,7 @@ namespace DLInventoryPacking.WinApps.Pages
                     }
                 }
 
+                BarcodeList = new ObservableCollection<BarcodeInfo>();
                 foreach (var _barcode in _barcodes)
                     BarcodeList.Add(_barcode);
 
