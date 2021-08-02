@@ -155,6 +155,16 @@ namespace DLInventoryPacking.WinApps.Pages
                     }
                 }
 
+                if (!string.IsNullOrWhiteSpace(PackingCodeFilter.Text))
+                {
+                    _barcodes = _barcodes.Where(element => element.PackingCode.Contains(PackingCodeFilter.Text)).ToList();
+                }
+
+                if (!string.IsNullOrWhiteSpace(GradeFilter.Text))
+                {
+                    _barcodes = _barcodes.Where(element => element.PackingCode.Contains(GradeFilter.Text)).ToList();
+                }
+
                 BarcodeListView.Items.Clear();
                 foreach (var _barcode in _barcodes)
                     BarcodeListView.Items.Add(_barcode);
