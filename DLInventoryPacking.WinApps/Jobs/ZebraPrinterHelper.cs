@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
 using Zebra.Sdk.Printer.Discovery;
@@ -42,17 +43,25 @@ namespace DLInventoryPacking.WinApps.Jobs
             {
                 var db = new IPConfigurationManager();
                 var ipAddress = db.GetIP();
-                // Instantiate connection for ZPL TCP port at given address
-                thePrinterConn = ConnectionBuilder.Build($"TCP:{ipAddress}:9100");
+                
+                if (string.IsNullOrWhiteSpace(ipAddress))
+                {
+                    MessageBox.Show("IP belum di-Set!");
+                }
+                else
+                {
+                    // Instantiate connection for ZPL TCP port at given address
+                    thePrinterConn = ConnectionBuilder.Build($"TCP:{ipAddress}:9100");
 
-                // Open the connection - physical connection is established here.
-                thePrinterConn.Open();
+                    // Open the connection - physical connection is established here.
+                    thePrinterConn.Open();
 
-                // This example prints "This is a ZPL test." near the top of the label.
-                //string zplData = "^XA^FO20,20^A0N,25,25^FDThis is a ZPL test.^FS^XZ";
+                    // This example prints "This is a ZPL test." near the top of the label.
+                    //string zplData = "^XA^FO20,20^A0N,25,25^FDThis is a ZPL test.^FS^XZ";
 
-                // Send the data to printer as a byte array.
-                thePrinterConn.Write(Encoding.UTF8.GetBytes(zpl));
+                    // Send the data to printer as a byte array.
+                    thePrinterConn.Write(Encoding.UTF8.GetBytes(zpl));
+                }
             }
             catch (ConnectionException e)
             {
