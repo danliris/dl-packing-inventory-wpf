@@ -98,7 +98,7 @@ namespace DLInventoryPacking.WinApps
 
 
 
-            if (Yarnpage.BarcodeList.Count > 0)
+            if (Yarnpage.BarcodeList != null && Yarnpage.BarcodeList.Count > 0)
             {
 
                 MessageBox.Show("Apakah Anda Tidak Ingin Mencetak Barcode?");
