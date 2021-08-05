@@ -152,23 +152,25 @@ namespace DLInventoryPacking.WinApps.Pages
                         if (printedList != null && printedList.Count > 0)
                         {
                             barcode.productPackingCodes = barcode.productPackingCodes.Where(element => printedList.Contains(element)).ToList();
-                        }
 
-                        foreach (var packingCode in barcode.productPackingCodes)
-                        {
-                            var barcodeInfo = new BarcodeInfo()
+                            foreach (var packingCode in barcode.productPackingCodes)
                             {
-                                Color = barcode.color,
-                                MaterialConstructionName = barcode.materialConstruction.name,
-                                MaterialName = barcode.material.name,
-                                OrderNo = barcode.productionOrder.no,
-                                PackingCode = packingCode,
-                                PackingLength = barcode.productPackingLength.ToString(),
-                                PackingType = barcode.productPackingType,
-                                YarnMaterialName = barcode.yarnMaterial.name,
-                                UOMSKU = barcode.uomUnit
-                            };
-                            _barcodes.Add(barcodeInfo);
+                                var barcodeInfo = new BarcodeInfo()
+                                {
+                                    Color = barcode.color,
+                                    MaterialConstructionName = barcode.materialConstruction.name,
+                                    MaterialName = barcode.material.name,
+                                    OrderNo = barcode.productionOrder.no,
+                                    PackingCode = packingCode,
+                                    PackingLength = barcode.productPackingLength.ToString(),
+                                    PackingType = barcode.productPackingType,
+                                    YarnMaterialName = barcode.yarnMaterial.name,
+                                    UOMSKU = barcode.uomUnit
+                                };
+                                _barcodes.Add(barcodeInfo);
+                            }
+
+                        
                             //BarcodeList.Add(barcodeInfo);
                         }
 
