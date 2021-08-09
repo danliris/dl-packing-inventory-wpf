@@ -19,6 +19,8 @@ namespace DLInventoryPacking.WinApps.Services.ResponseModel
         public string Color { get; set; }
         public string OrderNo { get; set; }
         public string UOMSKU { get; set; }
+        public string DocumentNo { get; set; }
+        public string Grade { get; set; }
     }
 
     public class NewBarcodeInfo
@@ -37,6 +39,8 @@ namespace DLInventoryPacking.WinApps.Services.ResponseModel
         public string color { get; set; }
         public string uomUnit { get; set; }
         public ProductionOrder productionOrder { get; set; }
+        public string documentNo { get; set; }
+        public string grade { get; set; }
 
     }
 
