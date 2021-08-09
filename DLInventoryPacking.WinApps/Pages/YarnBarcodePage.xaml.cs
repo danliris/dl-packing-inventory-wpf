@@ -208,7 +208,7 @@ namespace DLInventoryPacking.WinApps.Pages
 
                 if (!string.IsNullOrWhiteSpace(GradeFilter.Text))
                 {
-                    _barcodes = _barcodes.Where(element => element.PackingCode.Contains(GradeFilter.Text)).ToList();
+                    _barcodes = _barcodes.Where(element => element.Grade.Contains(GradeFilter.Text)).ToList();
                 }
 
                 BarcodeList = new ObservableCollection<BarcodeInfo>();
