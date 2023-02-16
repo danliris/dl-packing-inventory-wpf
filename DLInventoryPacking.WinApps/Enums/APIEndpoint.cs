@@ -11,6 +11,12 @@ namespace DLInventoryPacking.WinApps.Enums
     {
         public const string AuthEndpoint = "http://com-danliris-service-auth-dev.azurewebsites.net/v1/";
         public const string PackingInventoryEndpoint = "http://com-danliris-service-packing-inventory-dev.azurewebsites.net/v1/";
+
+        //public const string AuthEndpoint = "https://com-danliris-service-auth.azurewebsites.net/v1/";
+        //public const string PackingInventoryEndpoint = "https://com-danliris-service-packing-inventory.azurewebsites.net/v1/";
+        //public const string PackingInventoryEndpoint = "http://localhost:65083/v1/";
+
+
         public static HttpClient HttpClient = new HttpClient();
     }
 }
