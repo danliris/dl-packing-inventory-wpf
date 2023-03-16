@@ -165,7 +165,8 @@ namespace DLInventoryPacking.WinApps.Pages
                                     PackingLength = barcode.productPackingLength.ToString(),
                                     PackingType = barcode.productPackingType,
                                     YarnMaterialName = barcode.yarnMaterial.name,
-                                    UOMSKU = barcode.uomUnit
+                                    UOMSKU = barcode.uomUnit,
+                                    MaterialWidth = barcode.materialWidth
                                 };
                                 _barcodes.Add(barcodeInfo);
                             }
