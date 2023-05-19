@@ -93,7 +93,7 @@ namespace DLInventoryPacking.WinApps.Pages
                 _barcodes = new List<BarcodeInfo>();
 
 
-                if (barcodeList != null && !IsReprint.IsChecked.GetValueOrDefault())
+                if (barcodeList != null /*&& !IsReprint.IsChecked.GetValueOrDefault()*/)
                     foreach (var barcode in barcodeList)
                     {
                         var printedListJson = _cache.StringGet(barcode.productionOrder.no);
@@ -124,7 +124,8 @@ namespace DLInventoryPacking.WinApps.Pages
                                 PackingLength = barcode.productPackingLength.ToString(),
                                 PackingType = barcode.productPackingType,
                                 YarnMaterialName = barcode.yarnMaterial.name,
-                                UOMSKU = barcode.uomUnit
+                                UOMSKU = barcode.uomUnit,
+                                Grade = barcode.grade
                             };
                             _barcodes.Add(barcodeInfo);
                             //BarcodeList.Add(barcodeInfo);
@@ -134,7 +135,7 @@ namespace DLInventoryPacking.WinApps.Pages
 
 
                     }
-                else if (barcodeList != null && IsReprint.IsChecked.GetValueOrDefault())
+                else if (barcodeList != null /*&& IsReprint.IsChecked.GetValueOrDefault()*/)
                 {
                     foreach (var barcode in barcodeList)
                     {
@@ -257,6 +258,7 @@ namespace DLInventoryPacking.WinApps.Pages
 
             var zplString = "";
             var barcodes = BarcodeGrid.Items.OfType<BarcodeInfo>().ToList();
+            int jml = QtyPrint.Text != "" ? Int32.Parse(QtyPrint.Text) : 1;
             foreach (var barcode in barcodes)
             {
                 var printedListJson = _cache.StringGet(barcode.OrderNo);
@@ -297,13 +299,18 @@ namespace DLInventoryPacking.WinApps.Pages
                     zplString += $"^XA^MMT^PW382^LL0635^LS0^CFA,0,11^FO30,340^FDAnyaman^FS^FO175,340^FD{barcode.MaterialName}^FS^FO30,375^FDKonstruksi^FS^FO175,375^FD{barcode.MaterialConstructionName}^FS^FO260,375^FD{barcode.YarnMaterialName}^FS^FO30,410^FDPanjang^FS^FO175,410^FD{barcode.PackingLength}^FS^FO260,410^FD{barcode.UOMSKU}^FS^FO30,445^FDMotif/Warna^FS^FO175,445^FD{barcode.Color}^FS^FO30,480^FDJalur^FS^FO175,480^FD{barcode.DocumentNo}^FS^FO30,550^FD{DateTime.Now}^FS^FT110,280^BQN,2,7^FH\\^FDLA,{barcode.PackingCode}^FS^FT135,310^A0N,16,21^FB125,1,0,C^FH\\^FD{barcode.PackingCode}^FS^PQ1,0,1,Y^XZ";
                 else
                     //landscape
-                    zplString += $"^XA^MMT^PW520^LL0635^LS0^CFA,0,11^FO220,135^FDAnyaman^FS^FO355,135^FD{barcode.MaterialName}^FS^FO220,170^FDKonstruksi^FS^FO355,170^FD{barcode.MaterialConstructionName}^FS^FO430,170^FD{barcode.YarnMaterialName}^FS^FO220,205^FDPanjang^FS^FO355,205^FD{barcode.PackingLength}^FS^FO430,205^FD{barcode.UOMSKU}^FS^FO220,240^FDMotif/Warna^FS^FO365,240^FD{barcode.Color}^FS^FO220,275^FDYard^FS^FO355,275^FD{convYard}^FS^FO45,125^BQN,2,7^FH\\^FDLA,{barcode.PackingCode}^FS^FT45,335^A0N,16,21^FB125,2,0,C^FH\\^FD{barcode.PackingCode}^FS^PQ1,0,1,Y^XZ";
+                    zplString += $"^XA^MMT^PW600^LL0635^LS0^CF0,0,26^FO20,20^FDMaterial^FS^FO35,50^FD{barcode.MaterialName}^FS^FO20,90^FDAnyaman^FS^FO35,120^FD{barcode.MaterialConstructionName}^FS^FO235,120^FD{barcode.YarnMaterialName}^FS^FO210,155^FDLebar^FS^FO355,155^FD{barcode.MaterialWidth}^FS^FO210,195^FDPanjang^FS^FO355,195^FD{barcode.PackingLength}^FS^FO435,195^FD{barcode.UOMSKU}^FS^FO355,235^FD{convYard}^FS^FO435,235^FDYARD^FS^FO210,275^FDMotif/Warna^FS^FO355,275^FD{barcode.Color}^FS^FO25,140^BQN,2,7^FH\\^FDLA,{barcode.PackingCode}^FS^FO125,325^A0N,40,40^FB400,2,0,C^FH\\^FD{barcode.PackingCode}^FS^PQ1,0,1,Y^XZ";
 
 
 
             }
             //var zpl2 = "CT~~CD,~CC^~CT~^XA~TA000~JSN^LT0^MNM,0^MTT^PON^PMN^LH0,0^JMA^PR3,3~SD30^JUS^LRN^CI27^PA0,1,1,0^XZ^XA^MMT^PW615^LL328^LS0^FWR^FO415,70^BQ,2,8^FDQA,FD200200002PCS^FS^FO380,80^AD,12,12^FD200200002PCS^FS^FO100,25^BY2^BC,75,Y,N,N^FD200200002^FS^FO306,65^AD,12,12^FDPC25 LOT 1^FS^FO280,65^AD,11,11^FD2 BALE^FS^FO0,25^AD,10,10^FD28/04/2020^FS^PQ1,0,1,Y^XZ";
-            ZebraPrinterHelper.Print(zplString);
+            //ZebraPrinterHelper.Print(zplString);
+
+            for (int i = 0; i < jml; i++)
+            {
+                ZebraPrinterHelper.Print(zplString);
+            }
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
@@ -321,6 +328,7 @@ namespace DLInventoryPacking.WinApps.Pages
 
             var zplString = "";
             var barcodes = BarcodeGrid.SelectedItems.Cast<BarcodeInfo>().ToList();
+            int jml = QtyPrint.Text != "" ? Int32.Parse(QtyPrint.Text) : 1;
             foreach (var barcode in barcodes)
             {
                 var printedListJson = _cache.StringGet(barcode.OrderNo);
@@ -360,11 +368,17 @@ namespace DLInventoryPacking.WinApps.Pages
                     zplString += $"^XA^MMT^PW382^LL0635^LS0^CFA,0,11^FO30,340^FDAnyaman^FS^FO175,340^FD{barcode.MaterialName}^FS^FO30,375^FDKonstruksi^FS^FO175,375^FD{barcode.MaterialConstructionName}^FS^FO260,375^FD{barcode.YarnMaterialName}^FS^FO30,410^FDPanjang^FS^FO175,410^FD{barcode.PackingLength}^FS^FO260,410^FD{barcode.UOMSKU}^FS^FO30,445^FDMotif/Warna^FS^FO175,445^FD{barcode.Color}^FS^FO30,480^FDJalur^FS^FO175,480^FD{barcode.DocumentNo}^FS^FO30,550^FD{DateTime.Now}^FS^FT110,280^BQN,2,7^FH\\^FDLA,{barcode.PackingCode}^FS^FT135,310^A0N,16,21^FB125,1,0,C^FH\\^FD{barcode.PackingCode}^FS^PQ1,0,1,Y^XZ";
                 else
                     //landscape
-                    zplString += $"^XA^MMT^PW520^LL0635^LS0^CFA,0,11^FO220,135^FDAnyaman^FS^FO355,135^FD{barcode.MaterialName}^FS^FO220,170^FDKonstruksi^FS^FO355,170^FD{barcode.MaterialConstructionName}^FS^FO430,170^FD{barcode.YarnMaterialName}^FS^FO220,205^FDPanjang^FS^FO355,205^FD{barcode.PackingLength}^FS^FO430,205^FD{barcode.UOMSKU}^FS^FO220,240^FDMotif/Warna^FS^FO365,240^FD{barcode.Color}^FS^FO220,275^FDYard^FS^FO355,275^FD{convYard}^FS^FO45,125^BQN,2,7^FH\\^FDLA,{barcode.PackingCode}^FS^FT45,335^A0N,16,21^FB125,2,0,C^FH\\^FD{barcode.PackingCode}^FS^PQ1,0,1,Y^XZ";
+                    zplString += $"^XA^MMT^PW600^LL0635^LS0^CF0,0,26^FO20,20^FDMaterial^FS^FO35,50^FD{barcode.MaterialName}^FS^FO20,90^FDAnyaman^FS^FO35,120^FD{barcode.MaterialConstructionName}^FS^FO235,120^FD{barcode.YarnMaterialName}^FS^FO210,155^FDLebar^FS^FO355,155^FD{barcode.MaterialWidth}^FS^FO210,195^FDPanjang^FS^FO355,195^FD{barcode.PackingLength}^FS^FO435,195^FD{barcode.UOMSKU}^FS^FO355,235^FD{convYard}^FS^FO435,235^FDYARD^FS^FO210,275^FDMotif/Warna^FS^FO355,275^FD{barcode.Color}^FS^FO25,140^BQN,2,7^FH\\^FDLA,{barcode.PackingCode}^FS^FO125,325^A0N,40,40^FB400,2,0,C^FH\\^FD{barcode.PackingCode}^FS^PQ1,0,1,Y^XZ";
 
             }
             //var zpl2 = "CT~~CD,~CC^~CT~^XA~TA000~JSN^LT0^MNM,0^MTT^PON^PMN^LH0,0^JMA^PR3,3~SD30^JUS^LRN^CI27^PA0,1,1,0^XZ^XA^MMT^PW615^LL328^LS0^FWR^FO415,70^BQ,2,8^FDQA,FD200200002PCS^FS^FO380,80^AD,12,12^FD200200002PCS^FS^FO100,25^BY2^BC,75,Y,N,N^FD200200002^FS^FO306,65^AD,12,12^FDPC25 LOT 1^FS^FO280,65^AD,11,11^FD2 BALE^FS^FO0,25^AD,10,10^FD28/04/2020^FS^PQ1,0,1,Y^XZ";
-            ZebraPrinterHelper.Print(zplString);
+            //ZebraPrinterHelper.Print(zplString);
+            for (int i = 0; i < jml; i++)
+            {
+
+                ZebraPrinterHelper.Print(zplString);
+            }
+
         }
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)

@@ -77,7 +77,7 @@
                     <TextBox x:Name="GradeFilter" Width="120" FontSize="18" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 </Grid>
 
-                <Grid Grid.Row="6">
+                <!--<Grid Grid.Row="6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -87,6 +87,14 @@
 
                         <CheckBox Name="IsReprint">Re-print</CheckBox>
                     </Grid>
+                </Grid>-->
+                <Grid Grid.Row="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Jml Cetak" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBox x:Name="QtyPrint" Width="120" FontSize="18" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 </Grid>
 
                 <!--<Grid Grid.Row="7">
@@ -178,6 +186,7 @@
                         <component:DataGridNumericColumn IsReadOnly="True" Header="Ukuran Packing" Binding="{Binding Path=PackingLength}"/>
                         <DataGridTextColumn IsReadOnly="True" Header="Satuan" Binding="{Binding UOMSKU}"></DataGridTextColumn>
                         <DataGridTextColumn IsReadOnly="True" Header="Jenis Pack" Binding="{Binding PackingType}"></DataGridTextColumn>
+                        <DataGridTextColumn IsReadOnly="True" Header="Grade" Binding="{Binding Grade}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
 
