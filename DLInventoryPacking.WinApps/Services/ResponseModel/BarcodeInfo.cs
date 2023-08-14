@@ -22,6 +22,7 @@ namespace DLInventoryPacking.WinApps.Services.ResponseModel
         public string DocumentNo { get; set; }
         public string Grade { get; set; }
         public string MaterialWidth { get; set; }
+        public string FinishWidth { get; set; }
     }
 
     public class NewBarcodeInfo
@@ -43,6 +44,7 @@ namespace DLInventoryPacking.WinApps.Services.ResponseModel
         public string documentNo { get; set; }
         public string grade { get; set; }
         public string materialWidth { get; set; }
+        public string finishWidth { get; set; }
 
     }
 
